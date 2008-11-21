@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>
+            {{ project.name }} :: 
+            {% block title %}
+            {% endblock %}
+        </title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset/reset-min.css">
+        <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    </head>
+
+    <body>
+        <div id="body">
+            <div id="header" class="round-bottom clear">
+                {% block header %}
+                    <h1><a href="/">{{ project.name }}</a></h1>
+                {% endblock %}
+            </div>
+
+            <div id="subheader">
+                {% if user %}
+                    Welcome {{ user.nick }}, <a href="{{ login_url }}"> logout </a>
+                {% else %}
+                    Please <a href="{{ login_url }}"> register or login</a>
+                {% endif %}
+            </div>
+
+           	<div id='navigation'>
+               	{% block navigation %}
+                   	<ul>
+                       <li><a class='round-left' href="/">Home</a></li>
+                	</ul>
+            	{% endblock %}
+           	</div>
+
+            <div id="sidebar" class="round-top">
+             {% block sidebar %}
+             {% endblock %}
+            </div>
+
+            <div id='content' class='round-top'>
+                {% block content %}{% endblock %}
+            </div>
+
+            <div id="footer" class="clear">
+                {% block footer %}
+                    Developed by {{ project.author }}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

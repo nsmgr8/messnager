@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table>
+        {% for member in members %}
+            <tr>
+                <th>{{ member.gravatar }}</th>
+                <td>{{ member.nick }}</td>
+                <td>{% ifequal member.role_id roles.Manager %}*{% endifequal %}</td>
+                {% if admin %}
+                    <td><a href="/member/edit/{{ member.key }}/">Edit</a></td>
+                    {% ifnotequal member.role_id roles.Admin %}
+                        <td><a href="/member/delete/{{ member.key }}/">Delete</a></td>
+                    {% endifnotequal %}
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% include "pagination.html" %}
+{% endblock %}

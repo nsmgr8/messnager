@@ -1,0 +1,7 @@
+index.yaml
+#.gitignore
+*.pyc
+*~
+.DS_Store
+PYSMELLTAGS
+.pythoscope
