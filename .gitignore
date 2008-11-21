@@ -5,3 +5,12 @@ index.yaml
 .DS_Store
 PYSMELLTAGS
 .pythoscope
+*.svn
+appengine_django
+.google_appengine
+django.zip
+CHANGES
+COPYING
+KNOWN_ISSUES
+Makefile
+README

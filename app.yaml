@@ -1,4 +1,4 @@
-application: messnager
+application: mygaedebug
 version: 1
 runtime: python
 api_version: 1
@@ -7,8 +7,5 @@ handlers:
 - url: /static
   static_dir: static
 
-- url: /test.*
-  script: gaeunit.py
-
-- url: .*
+- url: /.*
   script: main.py
