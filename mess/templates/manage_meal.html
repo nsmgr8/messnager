@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}Manage meals{% endblock %}
+{% block title %}মিল ম্যানেজিং{% endblock %}
 
 {% block content %}
-     <form method="post">
+     <form method="post" id="meal-form">
         <table>
+            <tr>
+                <th>সদস্য</th>
+                <th>সকালের নাস্তা</th>
+                <th>দুপুরের খাবার</th>
+                <th>রাতের খাবার</th>
+                <th>অতিরিক্ত</th>
+            </tr>
+            {{management_form}}
             {% for form in forms %}
-                <tr><td><b>{{form.member.nick}}</b></td></tr>
-                {{ form.meal.as_table }}
+                <tr>
+                    <td>{{ form.0 }}</td>
+                    <td>{{form.1.breakfast}}</td>
+                    <td>{{form.1.lunch}}</td>
+                    <td>{{form.1.supper}}</td>
+                    <td><span class="form-error">{{form.1.extra.errors}}</span>{{form.1.extra}}</td>
+                    {{form.1.member}}
+                </tr>
             {% endfor %}
         </table>
-        <p><input type="submit" value="Save meal"></p>
+        <p><input type="submit" value="সংরক্ষণ করুন"></p>
     </form>
 {% endblock %}

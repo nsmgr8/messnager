@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import urllib
 import hashlib
 import logging
@@ -5,12 +7,15 @@ import logging
 from google.appengine.ext import db
 from google.appengine.api import users
 
+from appengine_django.models import BaseModel
+
 from django.utils.html import escape
+from django.http import HttpResponseRedirect
 
 roles = {
     'Admin': -1,
-    'Member': 0,
-    'Manager': 1,
+    'সদস্য': 0,
+    'ম্যানেজার': 1,
 }
 
 role_list = []
@@ -18,13 +23,13 @@ for key, value in roles.iteritems():
     if key is not 'Admin':
         role_list.append((value, key))
 
-class Member(db.Model):
+class Member(BaseModel):
     """ Member model """
     user = db.UserProperty()
-    email = db.EmailProperty()
-    nick = db.StringProperty()
+    nick = db.StringProperty(verbose_name="নাম")
+    email = db.EmailProperty(verbose_name="ইমেইল")
     role_id = db.IntegerProperty()
-    active = db.BooleanProperty(default=True)
+    active = db.BooleanProperty(default=True, verbose_name="সক্রিয়তা")
 
     def __unicode__(self):
         return self.nick
@@ -39,7 +44,7 @@ class Member(db.Model):
         gravatar_url += urllib.urlencode({
             'gravatar_id': hashlib.md5(self.email).hexdigest(),
             'size':str(size)})
-        return """<img src="%s" alt="gravatar" />""" % escape(gravatar_url)
+        return escape(gravatar_url)
 
     @staticmethod
     def role(role):
@@ -47,34 +52,27 @@ class Member(db.Model):
             def check_login(self, *args, **kwargs):
                 user = Member.current_user()
                 if not user:
-                    if self.request.method != 'GET':
-                        logging.info("Not user - aborting")
-                        self.error(403)
-                    else:
-                        logging.info("User not logged in -- force login")
-                        self.redirect(users.create_login_url(self.request.uri))
+                    logging.info("User not logged in -- force login")
+                    return HttpResponseRedirect(users.create_login_url('/member/'))
                 elif role == 'member' or \
-                    (role == 'manager' and user.role_id == roles['Manager']) or \
+                    (role == 'manager' and user.role_id == roles['ম্যানেজার']) or \
                     (role == "admin" and users.is_current_user_admin()):
                         logging.info("Allowing role (%s) for (%s)" % (role, user.nick))
-                        handler_method(self, *args, **kwargs)
+                        return handler_method(self, *args, **kwargs)
                 else:
                     roles_rev = {}
                     for key, value in roles.iteritems():
                         roles_rev.update({value:key})
                     logging.info("Not allowed (%s:%s) on (%s)" % (user.nick, roles_rev[user.role_id], handler_method.__name__))
-                    if self.request.method != 'GET':
-                        self.error(404)
-                    else:
-                        self.redirect('/')
+                    return HttpResponseRedirect('/member/')
             return check_login
         return wrapper
 
-class Meal(db.Model):
-    breakfast = db.BooleanProperty()
-    lunch = db.BooleanProperty()
-    supper = db.BooleanProperty()
-    extra = db.FloatProperty()
+class Meal(BaseModel):
+    breakfast = db.BooleanProperty(verbose_name="সকালের নাস্তা", required=False)
+    lunch = db.BooleanProperty(verbose_name="দুপুরের খাবার", required=False)
+    supper = db.BooleanProperty(verbose_name="রাতের খাবার", required=False)
+    extra = db.FloatProperty(verbose_name="অতিরিক্ত", required=False)
 
     date = db.DateProperty()
-    member = db.ReferenceProperty(Member)
+    member = db.ReferenceProperty(Member, required=False)

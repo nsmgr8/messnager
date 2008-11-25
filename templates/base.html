@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <title>
-            {{ project.name }} :: 
+            মেস ম্যানেজার :: 
             {% block title %}
             {% endblock %}
         </title>
@@ -15,40 +15,43 @@
 
     <body>
         <div id="body">
-            <div id="header" class="round-bottom clear">
+            <div id="header" class="clear">
                 {% block header %}
-                    <h1><a href="/">{{ project.name }}</a></h1>
+                    <h1><a href="/">মেস ম্যানেজার</a></h1>
                 {% endblock %}
             </div>
 
             <div id="subheader">
                 {% if user %}
-                    Welcome {{ user.nick }}, <a href="{{ login_url }}"> logout </a>
+                    স্বাগতম {{ user.nick }}, <a href="{{ login_url }}"> লগআউট</a>
                 {% else %}
-                    Please <a href="{{ login_url }}"> register or login</a>
+                    অনুগ্রহপূর্বক <a href="{{ login_url }}"> লগইন</a> করুন
                 {% endif %}
             </div>
 
            	<div id='navigation'>
                	{% block navigation %}
-                   	<ul>
-                       <li><a class='round-left' href="/">Home</a></li>
-                	</ul>
+                    <a href="/">নীড়পাতা</a>
+                    <a href="/member/">সদস্য তালিকা</a>
+                    <a href="/meals/">মিল ম্যনেজ</a>
             	{% endblock %}
            	</div>
 
-            <div id="sidebar" class="round-top">
+            <div class='clear'>
+            </div>
+
+            <div id="sidebar">
              {% block sidebar %}
              {% endblock %}
             </div>
 
-            <div id='content' class='round-top'>
+            <div id='content'>
                 {% block content %}{% endblock %}
             </div>
 
             <div id="footer" class="clear">
                 {% block footer %}
-                    Developed by {{ project.author }}
+                    সাইট নির্মাতা: নাসিমুল হক
                 {% endblock %}
             </div>
         </div>

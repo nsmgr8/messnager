@@ -51,7 +51,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -96,9 +96,11 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-     'appengine_django',
-     'django.contrib.auth',
+    'appengine_django',
+    'django.contrib.auth',
 #    'django.contrib.contenttypes',
 #    'django.contrib.sessions',
 #    'django.contrib.sites',
+
+    'mess',
 )

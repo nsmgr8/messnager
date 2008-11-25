@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% if admin %}
+        <a href='/member/create/'>নতুন সদস্য যোগ করুন</a>
+    {% endif %}
     <table>
         {% for member in members %}
             <tr>
-                <th>{{ member.gravatar }}</th>
+                <th><img src="{{ member.gravatar }}" alt="gravatar" /></th>
                 <td>{{ member.nick }}</td>
                 <td>{% ifequal member.role_id roles.Manager %}*{% endifequal %}</td>
                 {% if admin %}
-                    <td><a href="/member/edit/{{ member.key }}/">Edit</a></td>
+                    <td><a href="/member/edit/{{ member.key }}/">সম্পাদন করুন</a></td>
                     {% ifnotequal member.role_id roles.Admin %}
-                        <td><a href="/member/delete/{{ member.key }}/">Delete</a></td>
+                        <td>::</td>
+                        <td><a href="/member/delete/{{ member.key }}/">মুছে ফেলুন</a></td>
                     {% endifnotequal %}
                 {% endif %}
             </tr>
         {% endfor %}
     </table>
-
-    {% include "pagination.html" %}
 {% endblock %}
