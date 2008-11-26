@@ -22,18 +22,20 @@
             </div>
 
             <div id="subheader">
-                {% if user %}
-                    স্বাগতম {{ user.nick }}, <a href="{{ login_url }}"> লগআউট</a>
+                {% if admin %}
+                    প্রশাসক {{ admin_nick }}, <a href="{{ logout_url }}"> লগআউট</a>
                 {% else %}
-                    অনুগ্রহপূর্বক <a href="{{ login_url }}"> লগইন</a> করুন
+                    {% if user %}
+                        স্বাগতম {{ user.nick }}, <a href="{{ logout_url }}"> লগআউট</a>
+                    {% else %}
+                        অনুগ্রহপূর্বক <a href="{{ login_url }}"> লগইন</a> করুন
+                    {% endif %}
                 {% endif %}
             </div>
 
            	<div id='navigation'>
                	{% block navigation %}
-                    <a href="/">নীড়পাতা</a>
-                    <a href="/member/">সদস্য তালিকা</a>
-                    <a href="/meals/">মিল ম্যনেজ</a>
+                    {% include 'navigation.html' %}
             	{% endblock %}
            	</div>
 

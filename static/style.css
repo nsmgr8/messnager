@@ -1,0 +1,151 @@
+/* @group general classes */
+.clear { clear: both; }
+.form-error { color: red; }
+/* @end */
+
+/* @group layout */
+
+#body {
+    width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid red;
+    background: #eee;
+}
+
+#header {
+    border: 1px solid red;
+}
+
+#subheader {
+    background: #adf;
+    color: green;
+    padding: 2px;
+    font-size: 10pt;
+    margin: 0px 0px 10px 0px;
+}
+
+#navigation {
+    padding-top: 20px;
+}
+
+#content {
+    width: 400px;
+    float: right;
+    background: #ddd;
+    border: 1px solid blue;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    position: relative;
+}
+
+#sidebar {
+    width: 150px;
+    float: right;
+    border: 1px solid black;
+    background: #dfd;
+    margin: 10px 0px 10px 5px;
+    padding: 10px;
+}
+
+#footer {
+    text-align: center;
+    padding: 5px;
+    border: 1px solid red;
+}
+
+/* @end */
+
+/* @group navigation */
+
+#navigation a {
+    display: block;
+    text-decoration: none;
+    border: 1px solid black;
+    text-align: center;
+    float: left;
+    padding: 2px 5px;
+}
+
+#navigation a:hover, #navigation li a:active {
+    background: #fff;
+}
+
+/* @end */
+
+/* @group meal */
+#member-list td,
+#calendar th,
+#calendar td,
+#meal-form th,
+#meal-form td {
+    border:1px solid black;
+    text-align:center;
+    vertical-align:middle;
+}
+
+#calendar th,
+#meal-form th {
+    background:black;
+    color:#ccc;
+    padding:5px 0;
+}
+
+#calendar td.today {
+    background:white;
+}
+
+#calendar td a {
+    display:block;
+    width:50px;
+    text-decoration:none;
+}
+
+#calendar td a:hover {
+    background:green;
+    color:white;
+}
+
+#meal-form td {
+    border-left:none;
+    border-right:none;
+    width:20%;
+}
+
+#meal-view thead tr {
+    border: 3px double black;
+}
+
+#meal-view tbody tr {
+    border-bottom: 1px solid black;
+    border-left: 3px double black;
+    border-right: 3px double black;
+}
+
+#meal-view tfoot tr {
+    border: 3px double black;
+}
+
+#meal-view td {
+    text-align:center;
+    width:20%;
+    padding:3px;
+}
+/* @end */
+
+/* @group member */
+#member-list td {
+    padding: 0px 10px;
+    border: none;
+}
+
+.manager {
+    color: red;
+}
+
+.gravatar {
+  float:left;
+  padding:5px;
+  position:relative;
+}
+/* @end */

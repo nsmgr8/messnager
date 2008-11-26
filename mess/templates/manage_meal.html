@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
+{% load beng_num %}
+
 {% block title %}মিল ম্যানেজিং{% endblock %}
 
 {% block content %}
+    তারিখঃ {{ date|beng_numeral }} <br />
+    রোজঃ {{ weekday|beng_weekday }}
      <form method="post" id="meal-form">
         <table>
             <tr>
@@ -15,7 +19,7 @@
             {{management_form}}
             {% for form in forms %}
                 <tr>
-                    <td>{{ form.0 }}</td>
+                    <td>{{ form.0.nick|truncate_chars:20 }}</td>
                     <td>{{form.1.breakfast}}</td>
                     <td>{{form.1.lunch}}</td>
                     <td>{{form.1.supper}}</td>

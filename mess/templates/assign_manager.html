@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load beng_num %}
+
+{% block title %}ম্যানেজার নিয়োগ{% endblock %}
+
+{% block content %}
+     <form method="post" id="manager-form">
+        <table>
+            <tr>
+                <th>সদস্য</th>
+                <th>ম্যানেজার</th>
+            </tr>
+            {{ management_form }}
+            {% for form in forms %}
+                <tr>
+                    <td>{{ form.0.nick|truncate_chars:20 }}</td>
+                    <td>{{form.1.role_id}}</td>
+                    {{form.1.member}}
+                </tr>
+            {% endfor %}
+        </table>
+        <p><input type="submit" value="সংরক্ষণ করুন"></p>
+    </form>
+{% endblock %}
