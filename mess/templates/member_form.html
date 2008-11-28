@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<form method="post">
+    <table id="member-form-table">
+        <tr>
+            <td><label for="id_nick">{% trans "Nick" %}</label></td>
+            <td>{{ form.nick }}</td>
+            <td class="form-error">{{ form.nick.errors }}</td>
+        </tr>
+        <tr>
+            <td><label for="id_email">{% trans "Email" %}</label></td>
+            <td>{{ form.email }}</td>
+            <td class="form-error">{{ form.email.errors }}</td>
+        </tr>
+        <tr>
+            <td><label for="id_nick">{% trans "Active" %}</label></td>
+            <td>{{ form.active }}</td>
+            <td class="form-error">{{ form.active.errors }}</td>
+        </tr>
+    </table>
+
+    <p><input type="submit" value="{% trans "Save" %}"></p>
+</form>

@@ -1,33 +1,45 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load beng_num %}
 
-{% block title %}মিল ম্যানেজিং{% endblock %}
+{% block title %}
+    {% trans "Manage Meals" %}
+{% endblock %}
 
 {% block content %}
-    তারিখঃ {{ date|beng_numeral }} <br />
-    রোজঃ {{ weekday|beng_weekday }}
+    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {% trans weekday %}</p>
+
      <form method="post" id="meal-form">
-        <table>
-            <tr>
-                <th>সদস্য</th>
-                <th>সকালের নাস্তা</th>
-                <th>দুপুরের খাবার</th>
-                <th>রাতের খাবার</th>
-                <th>অতিরিক্ত</th>
-            </tr>
-            {{management_form}}
-            {% for form in forms %}
+        <table id="meal-form-table">
+            <thead>
                 <tr>
-                    <td>{{ form.0.nick|truncate_chars:20 }}</td>
-                    <td>{{form.1.breakfast}}</td>
-                    <td>{{form.1.lunch}}</td>
-                    <td>{{form.1.supper}}</td>
-                    <td><span class="form-error">{{form.1.extra.errors}}</span>{{form.1.extra}}</td>
-                    {{form.1.member}}
+                    <td>{% trans "Member" %}</td>
+                    <td>{% trans "Breakfast" %}</td>
+                    <td>{% trans "Lunch" %}</td>
+                    <td>{% trans "Supper" %}</td>
+                    <td>{% trans "Extra" %}</td>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for form in forms %}
+                    <tr>
+                        <td>{{ form.0.nick|truncate_chars:20 }}</td>
+                        <td>{{form.1.breakfast}}</td>
+                        <td>{{form.1.lunch}}</td>
+                        <td>{{form.1.supper}}</td>
+                        <td>
+                            <span class="form-error">
+                                {{form.1.extra.errors}}
+                            </span>
+                            {{form.1.extra}}
+                            {{form.1.member}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <p><input type="submit" value="সংরক্ষণ করুন"></p>
+        {{management_form}}
+        <p><input type="submit" value="{% trans "Save" %}"></p>
     </form>
 {% endblock %}

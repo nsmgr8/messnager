@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load beng_num %}
 
-{% block title %}ম্যানেজার নিয়োগ{% endblock %}
+{% block title %}{% trans "Assign manager" %}{% endblock %}
 
 {% block content %}
      <form method="post" id="manager-form">
-        <table>
-            <tr>
-                <th>সদস্য</th>
-                <th>ম্যানেজার</th>
-            </tr>
-            {{ management_form }}
-            {% for form in forms %}
+        <table id="manager-form-table">
+            <thead>
                 <tr>
-                    <td>{{ form.0.nick|truncate_chars:20 }}</td>
-                    <td>{{form.1.role_id}}</td>
-                    {{form.1.member}}
+                    <td>{% trans "Member" %}</td>
+                    <td>{% trans "Manager" %}</td>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for form in forms %}
+                    <tr>
+                        <td>{{ form.0.nick|truncate_chars:20 }}</td>
+                        <td>{{form.1.role_id}}
+                        {{form.1.member}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <p><input type="submit" value="সংরক্ষণ করুন"></p>
+        {{ management_form }}
+        <p><input type="submit" value="{% trans "Save" %}"></p>
     </form>
 {% endblock %}

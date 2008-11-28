@@ -3,6 +3,7 @@
 # django import
 from django import forms
 from django.forms.formsets import formset_factory
+from django.utils.translation import ugettext_lazy as _
 
 import models
 
@@ -33,7 +34,7 @@ class MealForm(forms.Form):
         required=False,
         #max_value=100,
         #min_value=0,
-        error_messages={'invalid': 'শুধু সংখ্যা প্রযোজ্য',})# 'max_value': '<= 100', 'min_value': '>= 0'})
+        error_messages={'invalid': _('Only numbers allowed'),})# 'max_value': '<= 100', 'min_value': '>= 0'})
 
     class Meta:
         model = models.Meal

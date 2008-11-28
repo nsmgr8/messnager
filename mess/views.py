@@ -11,6 +11,12 @@ from google.appengine.api import users
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django import forms as djforms
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+
+# appengine_django imports
+#from appengine_django.auth.models import User
 
 # my imports
 from models import roles
@@ -156,6 +162,7 @@ def assign_manager(request):
     return render("assign_manager.html", params)
 
 def month_calendar():
+    #calendar.setfirstweekday(settings.FIRST_WEEK_DAY)
     today = datetime.date.today()
     return {
         'calendar': calendar.monthcalendar(today.year, today.month),
@@ -241,12 +248,9 @@ def meal_daily(request, year, month, day):
     iday = int(day)
     date = datetime.date(iyear, imonth, iday)
 
-    meals = Meal.all().filter('date =', date)
-
     params = {
         'date': '%s/%s/%s' % (day, month, year),
         'weekday': calendar.weekday(iyear, imonth, iday),
-        'meals': meals,
         'total': Meal.day_total(date),
     }
     return render("meal_daily.html", params)
@@ -266,6 +270,7 @@ def meal_monthly(request, year, month):
     if prev < 1:
         prev = 12
         prevy -= 1
+
     params = {
         'month': imonth,
         'year': year,

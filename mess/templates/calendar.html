@@ -1,36 +1,43 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load beng_num %}
 
 {% block content %}
-    <center>{{ month|eng_month }} :: {{ year|beng_numeral }}
-    <table id="calendar">
-        <tr>
-            <th>সোম</th>
-            <th>মঙ্গল</th>
-            <th>বুধ</th>
-            <th>বৃহঃ</th>
-            <th>শুক্র</th>
-            <th>শনি</th>
-            <th>রবি</th>
-        </tr>
-        {% for week in calendar %}
-            <tr>
-                {% for day in week %}
-                    <td
-                        {% ifequal today day %}
-                            class="today"
-                        {% endifequal %}
-                    >
-                        {% ifnotequal day 0 %}
-                            <a href="/meals/{{task}}/{{year}}-{{month}}-{{day}}/">
-                                {{ day|beng_numeral }}
-                            </a>
-                        {% endifnotequal %}
-                    </td>
+    <center>
+        {{ month|eng_month }} :: {{ year|beng_numeral }}
+        <table id="calendar-table">
+            <thead>
+                <tr>
+                    <td>{% trans "Mon" %}</td>
+                    <td>{% trans "Tue" %}</td>
+                    <td>{% trans "Wed" %}</td>
+                    <td>{% trans "Thu" %}</td>
+                    <td>{% trans "Fri" %}</td>
+                    <td>{% trans "Sat" %}</td>
+                    <td>{% trans "Sun" %}</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for week in calendar %}
+                    <tr>
+                        {% for day in week %}
+                            <td
+                                {% ifequal today day %}
+                                    class="today"
+                                {% endifequal %}
+                            >
+                                {% ifnotequal day 0 %}
+                                    <a href="/meals/{{task}}/{{year}}-{{month}}-{{day}}/">
+                                        {{ day|beng_numeral }}
+                                    </a>
+                                {% endifnotequal %}
+                            </td>
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
+            </tbody>
+        </table>
     </center>
 {% endblock %}

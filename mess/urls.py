@@ -1,5 +1,9 @@
 from django.conf.urls.defaults import *
 
+import datetime
+
+today = datetime.date.today()
+
 urlpatterns = patterns('mess.views',
     (r'^$', 'home'),
 
@@ -13,6 +17,10 @@ urlpatterns = patterns('mess.views',
     (r'^meals/edit/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', 'edit_meal'),
     (r'^meals/view/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', 'meal_daily'),
     (r'^meals/view/(?P<year>\d{4})-(?P<month>\d{1,2})/$', 'meal_monthly'),
+    (r'^meals/view/current/$', 'meal_monthly', {'year':today.year,'month':today.month}),
 
     (r'^register/$', 'register'),
+)
+urlpatterns += ('',
+    (r'^login/$', 'django.auth.views.login'),
 )

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block content %}
     {% if admin or manager %}
-        <a href='/member/create/'>নতুন সদস্য যোগ করুন</a>
+        <a href='/member/create/'>{% trans "Add a new member" %}</a>
     {% endif %}
     <table id='member-list'>
         {% for member in members %}
@@ -10,10 +12,10 @@
                 <th><img src="{{ member.gravatar }}" alt="gravatar" /></th>
                 <td>{{ member.nick }}</td>
                 {% if admin or manager %}
-                    <td><a href="/member/edit/{{ member.key }}/">সম্পাদনা</a></td>
+                    <td><a href="/member/edit/{{ member.key }}/">{% trans "Edit" %}</a></td>
                 {% endif %}
                 {% if admin %}
-                    <td><a href="/member/delete/{{ member.key }}/">মুছুন</a></td>
+                    <td><a href="/member/delete/{{ member.key }}/">{% trans "Delete" %}</a></td>
                 {% endif %}
             </tr>
         {% endfor %}

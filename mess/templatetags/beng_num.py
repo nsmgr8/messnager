@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
 @register.filter
 def beng_numeral(value):
+    if not settings.LANGUAGE_CODE == 'bn':
+        return value
+
     trans_dict = {
         '1': '১',
         '2': '২',
@@ -27,6 +31,11 @@ def beng_numeral(value):
 
 @register.filter
 def beng_month(value):
+    class BengaliLocalException:
+        pass
+    if not settings.LANGUAGE_CODE == 'bn':
+        raise BengaliLocalException
+
     month_names = {
         1: 'বৈশাখ',
         2: 'জৈষ্ঠ্য',
@@ -46,6 +55,24 @@ def beng_month(value):
 
 @register.filter
 def eng_month(value):
+    if not settings.LANGUAGE_CODE == 'bn':
+        month_names = {
+            1: 'January',
+            2: 'February',
+            3: 'March',
+            4: 'April',
+            5: 'May',
+            6: 'June',
+            7: 'July',
+            8: 'August',
+            9: 'September',
+           10: 'October',
+           11: 'November',
+           12: 'December',
+        }
+
+        return month_names[value]
+
     month_names = {
         1: 'জানুয়ারি',
         2: 'ফেব্রুয়ারি',
@@ -65,6 +92,18 @@ def eng_month(value):
 
 @register.filter
 def beng_weekday(value):
+    if not settings.LANGUAGE_CODE == 'bn':
+        weekdays = {
+            0: 'Monday',
+            1: 'Tuesday',
+            2: 'Wednesday',
+            3: 'Thursday',
+            4: 'Friday',
+            5: 'Saturday',
+            6: 'Sunday',
+        }
+        return weekdays[value]
+
     weekdays = {
         0: 'সোমবার',
         1: 'মঙ্গলবার',

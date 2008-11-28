@@ -1,10 +1,12 @@
-<a href="/">নীড়</a>
+{% load i18n %}
+
+<a href="/">{% trans "Home" %}</a>
 {% if admin or user %}
-    <a href="/member/">সদস্য তালিকা</a>
-    <a href="/meals/view/">দৈনিক মিল</a>
-    <a href="/meals/view/{{current_year}}-{{current_month}}/">মাসিক মিল</a>
+    <a href="/member/">{% trans "Members" %}</a>
+    <a href="/meals/view/">{% trans "Daily Meal" %}</a>
+    <a href="/meals/view/{{current_year}}-{{current_month}}/">{% trans "Monthly Meal" %}</a>
 {% endif %}
 {% if admin or manager %}
-    <a href="/meals/edit/">মিল ম্যানেজ</a>
-    <a href="/manager/">ম্যানেজার নিয়োগ</a>
+    <a href="/meals/edit/">{% trans "Manage Meal" %}</a>
+    <a href="/manager/">{% trans "Assign Manager" %}</a>
 {% endif %}

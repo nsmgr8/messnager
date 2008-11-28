@@ -1,61 +1,37 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-    "http://www.w3.org/TR/html4/strict.dtd">
+{% extends "template.html" %}
 
-<html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <title>
-            মেস ম্যানেজার :: 
-            {% block title %}
-            {% endblock %}
-        </title>
-		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset/reset-min.css">
-        <link rel="stylesheet" href="/static/style.css" type="text/css" />
-    </head>
+{% load i18n %}
 
-    <body>
-        <div id="body">
-            <div id="header" class="clear">
-                {% block header %}
-                    <h1><a href="/">মেস ম্যানেজার</a></h1>
-                {% endblock %}
-            </div>
+{% block site_title %}
+    {% trans "Mess Manager" %}
+{% endblock %}
 
-            <div id="subheader">
-                {% if admin %}
-                    প্রশাসক {{ admin_nick }}, <a href="{{ logout_url }}"> লগআউট</a>
-                {% else %}
-                    {% if user %}
-                        স্বাগতম {{ user.nick }}, <a href="{{ logout_url }}"> লগআউট</a>
-                    {% else %}
-                        অনুগ্রহপূর্বক <a href="{{ login_url }}"> লগইন</a> করুন
-                    {% endif %}
-                {% endif %}
-            </div>
+{% block header %}
+    <h1><a href="/">{% trans "Mess Manager" %}</a></h1>
+{% endblock %}
 
-           	<div id='navigation'>
-               	{% block navigation %}
-                    {% include 'navigation.html' %}
-            	{% endblock %}
-           	</div>
+{% block subheader %}
+    {% if admin %}
+        {% trans "Admin" %}:: {{ admin_nick }},
+        <a href="{{ logout_url }}">{% trans "logout" %}</a>
+    {% else %}
+        {% if user %}
+            {% trans "Welcome" %} {{ user.nick }},
+            <a href="{{ logout_url }}"> {% trans "logout" %}</a>
+        {% else %}
+            {% trans "Please" %}
+            <a href="{{ login_url }}">{% trans "login" %}</a> করুন
+        {% endif %}
+    {% endif %}
+{% endblock %}
 
-            <div class='clear'>
-            </div>
+{% block navigation %}
+    {% include 'navigation.html' %}
+{% endblock %}
 
-            <div id="sidebar">
-             {% block sidebar %}
-             {% endblock %}
-            </div>
+{% block sidebar %}
+{% endblock %}
 
-            <div id='content'>
-                {% block content %}{% endblock %}
-            </div>
-
-            <div id="footer" class="clear">
-                {% block footer %}
-                    সাইট নির্মাতা: নাসিমুল হক
-                {% endblock %}
-            </div>
-        </div>
-    </body>
-</html>
+{% block footer %}
+    {% trans "Developed by" %}: নাসিমুল হক
+{% endblock %}

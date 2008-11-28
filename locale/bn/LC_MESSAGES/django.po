@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-28 12:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: mess/forms.py:37
+msgid "Only numbers allowed"
+msgstr ""
+
+#: mess/templates/assign_manager.html:6
+msgid "Assign manager"
+msgstr ""
+
+#: templates/base.html:6 templates/base.html.py:10
+msgid "Mess Manager"
+msgstr ""
+
+#: templates/base.html:15
+msgid "Admin"
+msgstr ""
+
+#: templates/base.html:16 templates/base.html.py:20
+msgid "logout"
+msgstr ""
+
+#: templates/base.html:19
+msgid "Welcome"
+msgstr ""
+
+#: templates/base.html:22
+msgid "Please"
+msgstr ""
+
+#: templates/base.html:23
+msgid "login"
+msgstr ""
+
+#: templates/base.html:36
+msgid "Developed by"
+msgstr ""

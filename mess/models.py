@@ -21,10 +21,10 @@ roles = {
 class Member(BaseModel):
     """ Member model """
     user = db.UserProperty()
-    nick = db.StringProperty(verbose_name="নাম")
-    email = db.EmailProperty(verbose_name="ইমেইল")
+    nick = db.StringProperty()
+    email = db.EmailProperty()
     role_id = db.IntegerProperty(default=roles['member'])
-    active = db.BooleanProperty(default=True, verbose_name="সক্রিয়তা")
+    active = db.BooleanProperty(default=True)
 
     def __unicode__(self):
         return self.nick
@@ -71,10 +71,10 @@ class Member(BaseModel):
         return self.meal_set.filter('date =', date).get()
 
 class Meal(BaseModel):
-    breakfast = db.BooleanProperty(verbose_name="সকালের নাস্তা", required=False)
-    lunch = db.BooleanProperty(verbose_name="দুপুরের খাবার", required=False)
-    supper = db.BooleanProperty(verbose_name="রাতের খাবার", required=False)
-    extra = db.FloatProperty(verbose_name="অতিরিক্ত", required=False)
+    breakfast = db.BooleanProperty(required=False)
+    lunch = db.BooleanProperty(required=False)
+    supper = db.BooleanProperty(required=False)
+    extra = db.FloatProperty(required=False)
 
     date = db.DateProperty()
     member = db.ReferenceProperty(Member, required=False)
@@ -82,25 +82,7 @@ class Meal(BaseModel):
     @staticmethod
     def day_total(date):
         meals = Meal.all().filter('date =', date)
-        total = {
-            'breakfast': 0,
-            'lunch': 0,
-            'supper': 0,
-            'extra': 0.0,
-            'count': meals.count(),
-        }
-        if meals:
-            for meal in meals:
-                if meal.breakfast:
-                    total['breakfast'] += 1
-                if meal.lunch:
-                    total['lunch'] += 1
-                if meal.supper:
-                    total['supper'] += 1
-                total['extra'] += meal.extra
-
-        total['total'] = total['breakfast']/2. + total['lunch'] + total['supper'] + total['extra']
-        return total
+        return Meal._total_dict(meals)
 
     @staticmethod
     def month_total(month, year):
@@ -113,6 +95,10 @@ class Meal(BaseModel):
         end = datetime.date(year=year, month=month, day=1)
 
         meals = Meal.all().filter('date >=', start).filter('date <', end)
+        return Meal._total_dict(meals)
+
+    @staticmethod
+    def _total_dict(meals):
         total = {
             'member': {},
             'breakfast': 0,
@@ -130,20 +116,25 @@ class Meal(BaseModel):
                         'lunch': 0,
                         'supper': 0,
                         'extra': 0.0,
+                        'total': 0.0,
                     }
                 if meal.breakfast:
                     total['breakfast'] += 1
                     total['member'][member_key]['breakfast'] += 1
+                    total['member'][member_key]['total'] += 1
                 if meal.lunch:
                     total['lunch'] += 1
                     total['member'][member_key]['lunch'] += 1
+                    total['member'][member_key]['total'] += 1
                 if meal.supper:
                     total['supper'] += 1
                     total['member'][member_key]['supper'] += 1
+                    total['member'][member_key]['total'] += 1
                 total['extra'] += meal.extra
                 total['member'][member_key]['extra'] += meal.extra
+                total['member'][member_key]['total'] += meal.extra
 
-        total['total'] = total['breakfast']/2. + total['lunch'] + total['supper'] + total['extra']
-        total['count'] = len(total['member'])
+        total['total'] = total['breakfast'] + total['lunch'] + total['supper'] + total['extra']
+        total['members'] = len(total['member'])
         return total
 
