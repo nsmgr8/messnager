@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    {% if admin or manager %}
+        <a href='/mess/add/'>{% trans "Add a new mess" %}</a>
+    {% endif %}
+    <table id='mess-list'>
+        {% for m in mess %}
+            <tr>
+                <td>{{ m.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

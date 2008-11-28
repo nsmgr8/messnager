@@ -18,13 +18,21 @@ roles = {
     'manager': 1,
 }
 
+class Mess(BaseModel):
+    name = db.StringProperty(required=True)
+
+    def __unicode__(self):
+        return self.name
+
 class Member(BaseModel):
     """ Member model """
     user = db.UserProperty()
-    nick = db.StringProperty()
+    nick = db.StringProperty(required=True)
     email = db.EmailProperty()
     role_id = db.IntegerProperty(default=roles['member'])
     active = db.BooleanProperty(default=True)
+
+    mess = db.ReferenceProperty(Mess, required=True)
 
     def __unicode__(self):
         return self.nick
@@ -70,6 +78,14 @@ class Member(BaseModel):
     def get_meal(self, date):
         return self.meal_set.filter('date =', date).get()
 
+    @staticmethod
+    def filter_mess(query):
+        if not users.is_current_user_admin():
+            user = Member.current_user()
+            if user:
+                query.filter('mess =', user.mess)
+        return query
+
 class Meal(BaseModel):
     breakfast = db.BooleanProperty(required=False)
     lunch = db.BooleanProperty(required=False)
@@ -107,7 +123,11 @@ class Meal(BaseModel):
             'extra': 0.0,
         }
         if meals:
+            user = Member.current_user()
             for meal in meals:
+                if not users.is_current_user_admin():
+                    if not meal.member.mess == user.mess:
+                        continue
                 member_key = meal.member.key()
                 if not total['member'].has_key(member_key):
                     total['member'][member_key] = {

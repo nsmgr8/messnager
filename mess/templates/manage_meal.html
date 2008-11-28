@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {% trans weekday %}</p>
+    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
 
      <form method="post" id="meal-form">
         <table id="meal-form-table">
@@ -19,6 +19,9 @@
                     <td>{% trans "Lunch" %}</td>
                     <td>{% trans "Supper" %}</td>
                     <td>{% trans "Extra" %}</td>
+                    {% if admin %}
+                        <td>{% trans "Mess" %}</td>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +38,9 @@
                             {{form.1.extra}}
                             {{form.1.member}}
                         </td>
+                        {% if admin %}
+                            <td>{{ form.0.mess }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,6 +1,9 @@
 {% load i18n %}
 
 <a href="/">{% trans "Home" %}</a>
+{% if admin %}
+    <a href="/mess/">{% trans "Mess" %}</a>
+{% endif %}
 {% if admin or user %}
     <a href="/member/">{% trans "Members" %}</a>
     <a href="/meals/view/">{% trans "Daily Meal" %}</a>

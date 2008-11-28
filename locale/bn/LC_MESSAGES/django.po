@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-28 12:13+0000\n"
+"POT-Creation-Date: 2008-11-28 19:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,159 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: mess/forms.py:37
+#: mess/forms.py:48
 msgid "Only numbers allowed"
 msgstr ""
 
 #: mess/templates/assign_manager.html:6
 msgid "Assign manager"
+msgstr ""
+
+#: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
+#: mess/templates/meal_view.html:17
+msgid "Member"
+msgstr ""
+
+#: mess/templates/assign_manager.html:14
+msgid "Manager"
+msgstr ""
+
+#: mess/templates/assign_manager.html:28 mess/templates/manage_meal.html:49
+#: mess/templates/member_form.html:30 mess/templates/mess_add.html:19
+msgid "Save"
+msgstr ""
+
+#: mess/templates/calendar.html:12
+msgid "Mon"
+msgstr ""
+
+#: mess/templates/calendar.html:13
+msgid "Tue"
+msgstr ""
+
+#: mess/templates/calendar.html:14
+msgid "Wed"
+msgstr ""
+
+#: mess/templates/calendar.html:15
+msgid "Thu"
+msgstr ""
+
+#: mess/templates/calendar.html:16
+msgid "Fri"
+msgstr ""
+
+#: mess/templates/calendar.html:17
+msgid "Sat"
+msgstr ""
+
+#: mess/templates/calendar.html:18
+msgid "Sun"
+msgstr ""
+
+#: mess/templates/home.html:6 templates/navigation.html:3
+msgid "Home"
+msgstr ""
+
+#: mess/templates/home.html:10 templates/base.html:19
+msgid "Welcome"
+msgstr ""
+
+#: mess/templates/manage_meal.html:7
+msgid "Manage Meals"
+msgstr ""
+
+#: mess/templates/manage_meal.html:11 mess/templates/meal_daily.html:7
+msgid "Day:"
+msgstr ""
+
+#: mess/templates/manage_meal.html:18 mess/templates/meal_view.html:18
+msgid "Breakfast"
+msgstr ""
+
+#: mess/templates/manage_meal.html:19 mess/templates/meal_view.html:19
+msgid "Lunch"
+msgstr ""
+
+#: mess/templates/manage_meal.html:20 mess/templates/meal_view.html:20
+msgid "Supper"
+msgstr ""
+
+#: mess/templates/manage_meal.html:21 mess/templates/meal_view.html:21
+msgid "Extra"
+msgstr ""
+
+#: mess/templates/manage_meal.html:23 mess/templates/member_form.html:22
+#: templates/navigation.html:5
+msgid "Mess"
+msgstr ""
+
+#: mess/templates/meal_monthly.html:8
+msgid "Previous month"
+msgstr ""
+
+#: mess/templates/meal_monthly.html:10
+msgid "Next month"
+msgstr ""
+
+#: mess/templates/meal_view.html:7
+msgid "View Meal"
+msgstr ""
+
+#: mess/templates/meal_view.html:22
+msgid "Total"
+msgstr ""
+
+#: mess/templates/meal_view.html:40
+msgid "No meal data available"
+msgstr ""
+
+#: mess/templates/member_add.html:6
+msgid "New Member"
+msgstr ""
+
+#: mess/templates/member_edit.html:6
+msgid "Edit Member"
+msgstr ""
+
+#: mess/templates/member_form.html:6
+msgid "Nick"
+msgstr ""
+
+#: mess/templates/member_form.html:11
+msgid "Email"
+msgstr ""
+
+#: mess/templates/member_form.html:16
+msgid "Active"
+msgstr ""
+
+#: mess/templates/member_list.html:7
+msgid "Add a new member"
+msgstr ""
+
+#: mess/templates/member_list.html:15
+msgid "Edit"
+msgstr ""
+
+#: mess/templates/member_list.html:18
+msgid "Delete"
+msgstr ""
+
+#: mess/templates/mess_add.html:6
+msgid "New Mess"
+msgstr ""
+
+#: mess/templates/mess_add.html:13
+msgid "Name"
+msgstr ""
+
+#: mess/templates/mess_list.html:7
+msgid "Add a new mess"
+msgstr ""
+
+#: templates/500.html:6
+msgid "Page not found!"
 msgstr ""
 
 #: templates/base.html:6 templates/base.html.py:10
@@ -36,10 +183,6 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: templates/base.html:19
-msgid "Welcome"
-msgstr ""
-
 #: templates/base.html:22
 msgid "Please"
 msgstr ""
@@ -50,4 +193,24 @@ msgstr ""
 
 #: templates/base.html:36
 msgid "Developed by"
+msgstr ""
+
+#: templates/navigation.html:8
+msgid "Members"
+msgstr ""
+
+#: templates/navigation.html:9
+msgid "Daily Meal"
+msgstr ""
+
+#: templates/navigation.html:10
+msgid "Monthly Meal"
+msgstr ""
+
+#: templates/navigation.html:13
+msgid "Manage Meal"
+msgstr ""
+
+#: templates/navigation.html:14
+msgid "Assign Manager"
 msgstr ""

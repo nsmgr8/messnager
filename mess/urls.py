@@ -7,7 +7,10 @@ today = datetime.date.today()
 urlpatterns = patterns('mess.views',
     (r'^$', 'home'),
 
-    (r'^member/$', 'members'),
+    url(r'^mess/$', 'mess_list', name="mess"),
+    (r'^mess/add/$', 'mess_add'),
+
+    (r'^member/$', 'member_list'),
     (r'^member/create/$', 'create_member'),
     (r'^member/edit/(?P<key>.*)/$', 'edit_member'),
     (r'^member/delete/(.*)/$', 'delete_member'),

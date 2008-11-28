@@ -8,21 +8,30 @@ import calendar
 from google.appengine.api import users
 
 # django imports
-from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render_to_response
 from django import forms as djforms
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.http import Http404
+from django.shortcuts import render_to_response
+from django.utils.translation import ugettext_lazy as _
 
 # appengine_django imports
 #from appengine_django.auth.models import User
 
 # my imports
 from models import roles
-from models import Member, Meal
-from forms import MemberForm, ManagerForm, MealForm
-from forms import MealFormSet, ManagerFormSet
+from models import Mess
+from models import Member
+from models import Meal
+
+from forms import MessForm
+from forms import MemberForm
+from forms import MemberFormAdmin
+from forms import ManagerForm
+from forms import MealForm
+from forms import MealFormSet
+from forms import ManagerFormSet
 
 def user_info():
     user = Member.current_user()
@@ -53,49 +62,68 @@ def render(template_name, params=None):
 def home(request):
     return render("home.html")
 
+@Member.role('admin')
+def mess_list(request):
+    mess = Mess.all()
+    params = {
+        'mess': mess,
+    }
+    return render('mess_list.html', params)
+
+@Member.role('admin')
+def mess_add(request):
+    if request.method == 'POST':
+        form = MessForm(data=request.POST)
+        if form.is_valid():
+            form.save(commit=False).put()
+            return HttpResponseRedirect('/mess/')
+    else:
+        form = MessForm()
+    params = {
+        'form': form,
+    }
+    return render("mess_add.html", params)
+
 @Member.role('member')
-def members(request):
-    members = Member.all().order('nick')
+def member_list(request):
+    members = Member.all().order('-active').order('nick')
+    members = Member.filter_mess(members)
     return render("member_list.html", {'members': members})
 
 @Member.role('manager')
 def create_member(request):
-    if request.method == 'GET':
-        form = MemberForm()
-        return render("member_add.html", {'form':form})
-
     if request.method == 'POST':
         form = MemberForm(data=request.POST)
         if form.is_valid():
             form.save(commit=False).put()
             return HttpResponseRedirect('/member/')
+    else:
+        if users.is_current_user_admin():
+            form = MemberFormAdmin()
+        else:
+            user = Member.current_user()
+            form = MemberForm(initial={'mess': user.mess.key()})
 
-        return render("member_add.html", {'form':form})
+    return render("member_add.html", {'form':form})
 
 @Member.role('manager')
 def edit_member(request, key):
-    if request.method == 'GET':
-        member = Member.get(key)
-        if not member:
-            return HttpResponseRedirect('/member/')
-
-        form = MemberForm(instance=member)
-        return render("member_edit.html", {'form':form})
+    member = Member.get(key)
+    if not member:
+        return HttpResponseRedirect('/member/')
 
     if request.method == 'POST':
-        member = Member.get(key)
-        if not member:
-            return HttpResponseRedirect('/member/')
-
         form = MemberForm(data=request.POST, instance=member)
         if form.is_valid():
             form.save(commit=False).put()
             return HttpResponseRedirect('/member/')
+    else:
+        form = MemberForm(instance=member)
 
-        return render("member_edit.html", {'form':form})
+    return render("member_edit.html", {'form':form})
 
 
-@Member.role('manager')
+@Member.role('admin')
 def delete_member(request, key):
     if request.method != 'GET':
         raise Http404
@@ -144,7 +172,8 @@ def assign_manager(request):
 
         forms = zip(Member.all().order('nick'), formset.forms)
     else:
-        members = Member.all().order('nick')
+        members = Member.all().order('nick').filter('active =', True)
+        members = Member.filter_mess(members)
         data = []
         for member in members:
             d = {'member': member.key()}
@@ -208,7 +237,8 @@ def edit_meal(request, year, month, day):
 
         forms = zip(Member.all().order('nick'), formset.forms)
     else:
-        members = Member.all().order('nick')
+        members = Member.all().order('nick').filter('active =', True)
+        members = Member.filter_mess(members)
         data = []
         for member in members:
             d = {

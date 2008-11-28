@@ -7,7 +7,18 @@ from django.utils.translation import ugettext_lazy as _
 
 import models
 
+class MessForm(forms.ModelForm):
+    class Meta:
+        model = models.Mess
+
+class MemberFormAdmin(forms.ModelForm):
+    class Meta:
+        model = models.Member
+        exclude = ('user', 'role_id')
+
 class MemberForm(forms.ModelForm):
+    mess = forms.CharField(widget=forms.HiddenInput)
+
     class Meta:
         model = models.Member
         exclude = ('user', 'role_id')
