@@ -14,14 +14,15 @@ class MessForm(forms.ModelForm):
 class MemberFormAdmin(forms.ModelForm):
     class Meta:
         model = models.Member
-        exclude = ('user', 'role_id')
+        exclude = ('user', 'role_id', )
 
 class MemberForm(forms.ModelForm):
     mess = forms.CharField(widget=forms.HiddenInput)
+    description = forms.CharField(widget=forms.Textarea)
 
     class Meta:
         model = models.Member
-        exclude = ('user', 'role_id')
+        exclude = ('user', 'role_id', )
 
 class ManagerForm(forms.Form):
     member = forms.CharField(widget=forms.HiddenInput)
@@ -29,7 +30,7 @@ class ManagerForm(forms.Form):
 
     class Meta:
         model = models.Member
-        include = ('role_id')
+        include = ('role_id', )
 
 ManagerFormSet = formset_factory(ManagerForm)
 
@@ -49,6 +50,14 @@ class MealForm(forms.Form):
 
     class Meta:
         model = models.Meal
-        exclude = ('date')
+        exclude = ('date', )
 
 MealFormSet = formset_factory(MealForm)
+
+class BazaarForm(forms.Form):
+    amount = forms.FloatField()
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows':'5','cols':'20'}))
+
+    class Meta:
+        model = models.Bazaar
+        include = ('amount', 'description')

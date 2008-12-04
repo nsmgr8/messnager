@@ -24,6 +24,7 @@ from models import roles
 from models import Mess
 from models import Member
 from models import Meal
+from models import Bazaar
 
 from forms import MessForm
 from forms import MemberForm
@@ -32,6 +33,7 @@ from forms import ManagerForm
 from forms import MealForm
 from forms import MealFormSet
 from forms import ManagerFormSet
+from forms import BazaarForm
 
 def user_info():
     user = Member.current_user()
@@ -88,14 +90,24 @@ def mess_add(request):
 def member_list(request):
     members = Member.all().order('-active').order('nick')
     members = Member.filter_mess(members)
-    return render("member_list.html", {'members': members})
+    today = datetime.date.today()
+    params = {
+        'members': members,
+        'month': today.month,
+        'year': today.year,
+    }
+    return render("member_list.html", params)
 
 @Member.role('manager')
 def create_member(request):
     if request.method == 'POST':
-        form = MemberForm(data=request.POST)
+        if users.is_current_user_admin():
+            form = MemberFormAdmin(data=request.POST)
+        else:
+            form = MemberForm(data=request.POST)
         if form.is_valid():
-            form.save(commit=False).put()
+            entity = form.save(commit=False)
+            entity.put()
             return HttpResponseRedirect('/member/')
     else:
         if users.is_current_user_admin():
@@ -209,6 +221,9 @@ def show_calendar(request, task):
 @Member.role('manager')
 def edit_meal(request, year, month, day):
     try:
+        today = datetime.date.today()
+        if int(year) != today.year or int(month) != today.month:
+            raise
         date = djforms.DateField()
         s_date = "%s-%s-%s" % (year, month, day)
         date = date.clean(s_date)
@@ -257,9 +272,6 @@ def edit_meal(request, year, month, day):
 
             data.append(d)
 
-        if len(data) == 0:
-            raise Http404
-
         formset = MealFormSet(initial=data)
         forms = zip(members, formset.forms)
 
@@ -276,7 +288,13 @@ def meal_daily(request, year, month, day):
     iyear = int(year)
     imonth = int(month)
     iday = int(day)
-    date = datetime.date(iyear, imonth, iday)
+    try:
+        date = datetime.date(iyear, imonth, iday)
+        today = datetime.date.today()
+        if iyear != today.year or imonth != today.month:
+            raise
+    except:
+        return HttpResponseRedirect('/meals/view/')
 
     params = {
         'date': '%s/%s/%s' % (day, month, year),
@@ -310,3 +328,64 @@ def meal_monthly(request, year, month):
         'total': Meal.month_total(year=year, month=month),
     }
     return render("meal_monthly.html", params)
+
+@Member.role('member')
+def member_monthly(request, key, year, month):
+    member = Member.get(key)
+    if not member:
+        return HttpResponseRedirect('/member/')
+
+    user = Member.current_user()
+    if not users.is_current_user_admin():
+        if member.mess != user.mess:
+            return HttpResponseRedirect('/member/')
+
+    month = int(month)
+    year = int(year)
+    start = datetime.date(year=year, month=month, day=1)
+    month += 1
+    if month > 12:
+        month = 1
+        year += 1
+    end = datetime.date(year=year, month=month, day=1)
+
+    meals = member.meal_set.filter('date >=', start).filter('date <', end).order('date').fetch(32)
+    params = {
+        'nick': member.nick,
+        'meals': meals,
+        'total': Meal.total_member(meals),
+    }
+
+    return render("member_monthly.html", params)
+
+@Member.role('member')
+def bazaar_daily(request, year, month, day):
+    iyear = int(year)
+    imonth = int(month)
+    iday = int(day)
+    try:
+        date = datetime.date(iyear, imonth, iday)
+        today = datetime.date.today()
+        if iyear != today.year or imonth != today.month:
+            raise
+    except:
+        return HttpResponseRedirect('/meals/bazaar/')
+
+    if request.method == 'POST':
+        form = BazaarForm(data=request.POST)
+        if form.is_valid():
+            bazaar = Bazaar(
+                member=Member.current_user(),
+                date=date,
+                amount=form.cleaned_data['amount'])
+            bazaar.put()
+            return HttpResponseRedirect('/meals/bazaar/')
+    else:
+        form = BazaarForm()
+
+    params = {
+        'form': form,
+        'date': '%s/%s/%s' % (day, month, year),
+        'weekday': calendar.weekday(int(year),int(month),int(day)),
+    }
+    return render("bazaar_daily.html", params)

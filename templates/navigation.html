@@ -6,10 +6,11 @@
 {% endif %}
 {% if admin or user %}
     <a href="/member/">{% trans "Members" %}</a>
-    <a href="/meals/view/">{% trans "Daily Meal" %}</a>
-    <a href="/meals/view/{{current_year}}-{{current_month}}/">{% trans "Monthly Meal" %}</a>
+    <a href="/meals/bazaar/">{% trans "Bazaar" %}</a>
+    <a href="/meals/view/">{% trans "Daily" %}</a>
+    <a href="/meals/view/{{current_year}}-{{current_month}}/">{% trans "Monthly" %}</a>
 {% endif %}
 {% if admin or manager %}
-    <a href="/meals/edit/">{% trans "Manage Meal" %}</a>
-    <a href="/manager/">{% trans "Assign Manager" %}</a>
+    <a href="/meals/edit/">{% trans "Manage" %}</a>
+    <a href="/manager/">{% trans "Manager" %}</a>
 {% endif %}

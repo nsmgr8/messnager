@@ -9,13 +9,19 @@
     <table id='member-list'>
         {% for member in members %}
             <tr {% ifequal member.role_id roles.manager %}class="manager"{% endifequal %}>
-                <th><img src="{{ member.gravatar }}" alt="gravatar" /></th>
-                <td>{{ member.nick }}</td>
+                <td><img src="{{ member.gravatar }}" alt="gravatar" /></td>
+                
+                <td>
+                    <a href="/member/{{ member.key }}/{{ year }}-{{ month }}/">
+                        {{ member.nick }}
+                    </a>
+                </td>
                 {% if admin or manager %}
                     <td><a href="/member/edit/{{ member.key }}/">{% trans "Edit" %}</a></td>
                 {% endif %}
                 {% if admin %}
                     <td><a href="/member/delete/{{ member.key }}/">{% trans "Delete" %}</a></td>
+                    <td>{{ member.mess.name }}</td>
                 {% endif %}
             </tr>
         {% endfor %}

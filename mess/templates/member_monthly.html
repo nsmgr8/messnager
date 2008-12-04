@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load beng_num %}
+
+{% block title %}
+    {% trans nick %}
+{% endblock %}
+
+{% block content %}
+    {% trans nick %}
+
+    <table id="meal-view">
+        <thead>
+            <tr>
+                <td>{% trans "Date" %}</td>
+                <td>{% trans "Breakfast" %}</td>
+                <td>{% trans "Lunch" %}</td>
+                <td>{% trans "Supper" %}</td>
+                <td>{% trans "Extra" %}</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if meals %}
+                {% for meal in meals %}
+                    <tr>
+                        <td>{{ meal.date }}</td>
+                        <td>{% if meal.breakfast %}X{% endif %}</td>
+                        <td>{% if meal.lunch %}X{% endif %}</td>
+                        <td>{% if meal.supper %}X{% endif %}</td>
+                        <td>{{ meal.extra|beng_numeral }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">{% trans "No meal data available" %}</td>
+                </tr>
+            {% endif %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td>{% trans "Subtotal" %}</td>
+                <td>{{ total.breakfast|beng_numeral }}</td>
+                <td>{{ total.lunch|beng_numeral }}</td>
+                <td>{{ total.supper|beng_numeral }}</td>
+                <td>{{ total.extra|beng_numeral }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Total" %}</td>
+                <td colspan="5">{{ total.total|beng_numeral }}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

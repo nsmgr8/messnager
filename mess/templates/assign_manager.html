@@ -7,11 +7,14 @@
 
 {% block content %}
      <form method="post" id="manager-form">
-        <table id="manager-form-table">
+        <table id="manager-form">
             <thead>
                 <tr>
                     <td>{% trans "Member" %}</td>
                     <td>{% trans "Manager" %}</td>
+                    {% if admin %}
+                        <td>{% trans "Mess" %}</td>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +23,9 @@
                         <td>{{ form.0.nick|truncate_chars:20 }}</td>
                         <td>{{form.1.role_id}}
                         {{form.1.member}}</td>
+                        {% if admin %}
+                            <td>{{ form.0.mess.name }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

@@ -26,7 +26,6 @@
 }
 
 #navigation {
-    padding-top: 20px;
 }
 
 #content {
@@ -84,8 +83,7 @@
     vertical-align:middle;
 }
 
-#calendar th,
-#meal-form th {
+#calendar th {
     background:black;
     color:#ccc;
     padding:5px 0;
@@ -106,6 +104,12 @@
     color:white;
 }
 
+#manager-form,
+#meal-form,
+#meal-view {
+    width:100%;
+}
+
 #meal-form td {
     border-left:none;
     border-right:none;
@@ -116,6 +120,8 @@
     border: 3px double black;
 }
 
+#meal-form tr,
+#manager-form tr,
 #meal-view tbody tr {
     border-bottom: 1px solid black;
     border-left: 3px double black;
@@ -126,11 +132,13 @@
     border: 3px double black;
 }
 
+#meal-form td,
+#manager-form td,
 #meal-view td {
     text-align:center;
-    width:20%;
     padding:3px;
 }
+
 /* @end */
 
 /* @group member */

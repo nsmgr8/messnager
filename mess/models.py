@@ -20,6 +20,7 @@ roles = {
 
 class Mess(BaseModel):
     name = db.StringProperty(required=True)
+    description = db.TextProperty()
 
     def __unicode__(self):
         return self.name
@@ -97,8 +98,12 @@ class Meal(BaseModel):
 
     @staticmethod
     def day_total(date):
-        meals = Meal.all().filter('date =', date)
-        return Meal._total_dict(meals)
+        if users.is_current_user_admin():
+            members = Member.all()
+        else:
+            member = Member.current_user()
+            members = Member.all().filter('mess =', member.mess)
+        return Meal._total_dict(members, date)
 
     @staticmethod
     def month_total(month, year):
@@ -108,53 +113,84 @@ class Meal(BaseModel):
         month += 1
         if month > 12:
             month = 1
+            year += 1
         end = datetime.date(year=year, month=month, day=1)
 
-        meals = Meal.all().filter('date >=', start).filter('date <', end)
-        return Meal._total_dict(meals)
+        if users.is_current_user_admin():
+            members = Member.all()
+        else:
+            member = Member.current_user()
+            members = Member.all().filter('mess =', member.mess)
+
+        return Meal._total_dict(members, start, end)
 
     @staticmethod
-    def _total_dict(meals):
+    def _total_dict(members, start, end=None):
         total = {
             'member': {},
             'breakfast': 0,
             'lunch': 0,
             'supper': 0,
             'extra': 0.0,
+            'cost': 0.0,
         }
-        if meals:
-            user = Member.current_user()
-            for meal in meals:
-                if not users.is_current_user_admin():
-                    if not meal.member.mess == user.mess:
-                        continue
-                member_key = meal.member.key()
-                if not total['member'].has_key(member_key):
-                    total['member'][member_key] = {
-                        'nick': meal.member.nick,
-                        'breakfast': 0,
-                        'lunch': 0,
-                        'supper': 0,
-                        'extra': 0.0,
-                        'total': 0.0,
-                    }
-                if meal.breakfast:
-                    total['breakfast'] += 1
-                    total['member'][member_key]['breakfast'] += 1
-                    total['member'][member_key]['total'] += 1
-                if meal.lunch:
-                    total['lunch'] += 1
-                    total['member'][member_key]['lunch'] += 1
-                    total['member'][member_key]['total'] += 1
-                if meal.supper:
-                    total['supper'] += 1
-                    total['member'][member_key]['supper'] += 1
-                    total['member'][member_key]['total'] += 1
-                total['extra'] += meal.extra
-                total['member'][member_key]['extra'] += meal.extra
-                total['member'][member_key]['total'] += meal.extra
+
+        for member in members:
+            member_key = member.key()
+            t_member = total['member'][member_key] = {
+                'nick': member.nick,
+            }
+
+            if end:
+                meals = member.meal_set.filter('date >=', start).filter('date <', end)
+                bazaar = member.bazaar_set.filter('date >=', start).filter('date <', end)
+                for b in bazaar:
+                    total['cost'] += b.amount
+            else:
+                meals = member.meal_set.filter('date =', start)
+
+            t_member.update(Meal.total_member(meals))
+
+            total['breakfast'] += t_member['breakfast']
+            total['lunch'] += t_member['lunch']
+            total['supper'] += t_member['supper']
+            total['extra'] += t_member['extra']
+
 
         total['total'] = total['breakfast'] + total['lunch'] + total['supper'] + total['extra']
         total['members'] = len(total['member'])
+        if total['total'] != 0:
+            total['rate'] = total['cost'] / total['total']
+            if total['rate'] != 0:
+                for key, value in total['member'].iteritems():
+                    value['cost'] = value['total']*total['rate']
         return total
 
+    @staticmethod
+    def total_member(meals):
+        total = {
+            'breakfast': 0,
+            'lunch': 0,
+            'supper': 0,
+            'extra': 0,
+            'total':0,
+        }
+        for meal in meals:
+            if meal.breakfast:
+                total['breakfast'] += 1
+            if meal.lunch:
+                total['lunch'] += 1
+            if meal.supper:
+                total['supper'] += 1
+            if meal.extra:
+                total['extra'] += meal.extra
+
+        total['total'] = total['breakfast'] + total['lunch'] + total['supper'] + total['extra']
+
+        return total
+
+class Bazaar(BaseModel):
+    member = db.ReferenceProperty(Member, required=True)
+    date = db.DateProperty(required=True)
+    amount = db.FloatProperty(required=True)
+    description = db.TextProperty()
