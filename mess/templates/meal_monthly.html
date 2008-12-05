@@ -5,8 +5,31 @@
 
 {% block meal_title %}
     <center>
-        <a href="/meals/view/{{ previous }}/">{% trans "Previous month" %}</a>
+        <a href="/meals/view/total/{{ previous }}/">{% trans "Previous" %}</a>
         :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
-        <a href="/meals/view/{{ next }}/">{% trans "Next month" %}</a>
+        <a href="/meals/view/total/{{ next }}/">{% trans "Next" %}</a>
     </center>
+{% endblock %}
+
+{% block bazaar %}
+    <table id="bazaar-monthly">
+        <caption>
+            {% trans "Bazaar" %}
+        </caption>
+
+        {% regroup total.bazaar by date as bazaar_group %}
+
+        {% for bazaar in bazaar_group %}
+            <tr class="date">
+                <td>{{ bazaar.grouper|beng_numeral }}</td>
+            </tr>
+            {% for b in bazaar.list %}
+                <tr>
+                    <td></td>
+                    <td>{{ b.nick }}</td>
+                    <td>{{ b.amount|beng_numeral }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
 {% endblock %}

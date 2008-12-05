@@ -8,11 +8,11 @@
     {% endif %}
     <table id='member-list'>
         {% for member in members %}
-            <tr {% ifequal member.role_id roles.manager %}class="manager"{% endifequal %}>
+            <tr>
                 <td><img src="{{ member.gravatar }}" alt="gravatar" /></td>
-                
                 <td>
-                    <a href="/member/{{ member.key }}/{{ year }}-{{ month }}/">
+                    <a href="/member/{{ member.key }}/{{ year }}-{{ month }}/"
+                        {% ifequal member.role_id roles.manager %}class="manager"{% endifequal %}>
                         {{ member.nick }}
                     </a>
                 </td>

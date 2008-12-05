@@ -12,6 +12,7 @@ from appengine_django.models import BaseModel
 
 from django.utils.html import escape
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 
 roles = {
     'member': 0,
@@ -19,28 +20,31 @@ roles = {
 }
 
 class Mess(BaseModel):
-    name = db.StringProperty(required=True)
-    description = db.TextProperty()
+    name = db.StringProperty(verbose_name=_('Name'), required=True)
+    description = db.TextProperty(verbose_name=_('Description'))
+    breakfast = db.BooleanProperty(verbose_name=_('Half breakfast'), default=True)
 
     def __unicode__(self):
         return self.name
 
 class Member(BaseModel):
     """ Member model """
-    user = db.UserProperty()
-    nick = db.StringProperty(required=True)
-    email = db.EmailProperty()
-    role_id = db.IntegerProperty(default=roles['member'])
-    active = db.BooleanProperty(default=True)
+    user = db.UserProperty(verbose_name=_('User'), required=False)
+    nick = db.StringProperty(verbose_name=_('Nickname'), required=True)
+    email = db.EmailProperty(verbose_name=_('Email'), required=True)
+    role_id = db.IntegerProperty(verbose_name=_('Role ID'), default=roles['member'])
+    active = db.BooleanProperty(verbose_name=_('Active'), default=True)
 
-    mess = db.ReferenceProperty(Mess, required=True)
+    mess = db.ReferenceProperty(Mess, verbose_name=_('Mess'), required=True)
 
     def __unicode__(self):
-        return self.nick
+        return "%s (%s)" % (self.nick, self.mess.name)
 
     @staticmethod
     def current_user():
         user = users.get_current_user()
+        if users.is_current_user_admin():
+            return None
         return user and Member.all().filter('user', user).get() or None
 
     def gravatar(self, size=64):
@@ -88,13 +92,13 @@ class Member(BaseModel):
         return query
 
 class Meal(BaseModel):
-    breakfast = db.BooleanProperty(required=False)
-    lunch = db.BooleanProperty(required=False)
-    supper = db.BooleanProperty(required=False)
-    extra = db.FloatProperty(required=False)
+    breakfast = db.BooleanProperty(verbose_name=_('Breakfast'), required=False)
+    lunch = db.BooleanProperty(verbose_name=_('Lunch'), required=False)
+    supper = db.BooleanProperty(verbose_name=_('Supper'), required=False)
+    extra = db.FloatProperty(verbose_name=_('Extra'), required=False)
 
-    date = db.DateProperty()
-    member = db.ReferenceProperty(Member, required=False)
+    date = db.DateProperty(verbose_name=_('Date'))
+    member = db.ReferenceProperty(Member, verbose_name=_('Member'), required=False)
 
     @staticmethod
     def day_total(date):
@@ -131,8 +135,9 @@ class Meal(BaseModel):
             'breakfast': 0,
             'lunch': 0,
             'supper': 0,
-            'extra': 0.0,
-            'cost': 0.0,
+            'extra': 0,
+            'cost': 0,
+            'bazaar': [],
         }
 
         for member in members:
@@ -143,9 +148,15 @@ class Meal(BaseModel):
 
             if end:
                 meals = member.meal_set.filter('date >=', start).filter('date <', end)
-                bazaar = member.bazaar_set.filter('date >=', start).filter('date <', end)
-                for b in bazaar:
-                    total['cost'] += b.amount
+                if not users.is_current_user_admin():
+                    bazaar = member.bazaar_set.filter('date >=', start).filter('date <', end).order('date')
+                    for b in bazaar:
+                        total['cost'] += b.amount
+                        total['bazaar'].append({
+                            'nick': b.member.nick,
+                            'date': b.date,
+                            'amount': b.amount,
+                        })
             else:
                 meals = member.meal_set.filter('date =', start)
 
@@ -157,9 +168,15 @@ class Meal(BaseModel):
             total['extra'] += t_member['extra']
 
 
-        total['total'] = total['breakfast'] + total['lunch'] + total['supper'] + total['extra']
+        total['total'] = total['lunch'] + total['supper'] + total['extra']
+        user = Member.current_user()
+        if user:
+            if user.mess.breakfast:
+                total['total'] += total['breakfast'] / 2.
+            else:
+                total['total'] += total['breakfast']
         total['members'] = len(total['member'])
-        if total['total'] != 0:
+        if total['total'] != 0 and total['cost'] != 0:
             total['rate'] = total['cost'] / total['total']
             if total['rate'] != 0:
                 for key, value in total['member'].iteritems():
@@ -185,12 +202,18 @@ class Meal(BaseModel):
             if meal.extra:
                 total['extra'] += meal.extra
 
-        total['total'] = total['breakfast'] + total['lunch'] + total['supper'] + total['extra']
+        total['total'] = total['lunch'] + total['supper'] + total['extra']
+        user = Member.current_user()
+        if user:
+            if user.mess.breakfast:
+                total['total'] += total['breakfast'] / 2.
+            else:
+                total['total'] += total['breakfast']
 
         return total
 
 class Bazaar(BaseModel):
-    member = db.ReferenceProperty(Member, required=True)
-    date = db.DateProperty(required=True)
-    amount = db.FloatProperty(required=True)
-    description = db.TextProperty()
+    member = db.ReferenceProperty(Member, verbose_name=_('Member'), required=True)
+    date = db.DateProperty(verbose_name=_('Date'), required=True)
+    amount = db.FloatProperty(verbose_name=_('Amount'), required=True)
+    description = db.TextProperty(verbose_name=_('Description'))

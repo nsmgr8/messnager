@@ -4,5 +4,5 @@
 {% load beng_num %}
 
 {% block meal_title %}
-    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+    <p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
 {% endblock %}

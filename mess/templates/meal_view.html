@@ -11,10 +11,12 @@
     {% block meal_title %}
     {% endblock %}
 
-    {% if total.rate %}
-        {% trans "Meal Rate: " %}{{ total.rate|beng_numeral }}
-    {% endif %}
     <table id="meal-view">
+        <caption>
+            {% if total.rate %}
+                {% trans "Meal Rate" %}: {{ total.rate|floatformat:2|beng_numeral }}
+            {% endif %}
+        </caption>
         <thead>
             <tr>
                 <td>{% trans "Member" %}</td>
@@ -46,9 +48,9 @@
                         <td>{{ member.lunch|beng_numeral }}</td>
                         <td>{{ member.supper|beng_numeral }}</td>
                         <td>{{ member.extra|beng_numeral }}</td>
-                        <td>{{ member.total|beng_numeral }}</td>
+                        <td>{{ member.total|floatformat:2|beng_numeral }}</td>
                         {% if total.cost %}
-                            <td>{{ member.cost|beng_numeral }}</td>
+                            <td>{{ member.cost|floatformat:2|beng_numeral }}</td>
                         {% endif %}
                     </tr>
                 {% endfor %}
@@ -66,11 +68,14 @@
                 <td>{{ total.lunch|beng_numeral }}</td>
                 <td>{{ total.supper|beng_numeral }}</td>
                 <td>{{ total.extra|beng_numeral }}</td>
-                <td>{{ total.total|beng_numeral }}</td>
+                <td>{{ total.total|floatformat:2|beng_numeral }}</td>
                 {% if total.cost %}
-                    <td>{{ total.cost|beng_numeral }}</td>
+                    <td>{{ total.cost|floatformat:2|beng_numeral }}</td>
                 {% endif %}
             </tr>
         </tfoot>
     </table>
+
+    {% block bazaar %}
+    {% endblock %}
 {% endblock %}

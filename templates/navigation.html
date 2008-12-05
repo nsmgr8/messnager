@@ -3,12 +3,16 @@
 <a href="/">{% trans "Home" %}</a>
 {% if admin %}
     <a href="/mess/">{% trans "Mess" %}</a>
+{% else %}
+    {% if user %}
+        <a href="/mess/view/">{% trans "Mess" %}</a>
+    {% endif %}
 {% endif %}
 {% if admin or user %}
     <a href="/member/">{% trans "Members" %}</a>
     <a href="/meals/bazaar/">{% trans "Bazaar" %}</a>
     <a href="/meals/view/">{% trans "Daily" %}</a>
-    <a href="/meals/view/{{current_year}}-{{current_month}}/">{% trans "Monthly" %}</a>
+    <a href="/meals/view/current/">{% trans "Monthly" %}</a>
 {% endif %}
 {% if admin or manager %}
     <a href="/meals/edit/">{% trans "Manage" %}</a>

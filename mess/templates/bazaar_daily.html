@@ -8,20 +8,11 @@
 {% endblock %}
 
 {% block content %}
-    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+    <p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
 
      <form method="post" id="bazaar-form">
         <table id="bazaar-form">
-            <tr>
-                <td><label for="id_amount">{% trans "Amount" %}</label></td>
-                <td>{{ form.amount }}</td>
-                <td class="form-error">{% trans form.amount.errors %}</td>
-            </tr>
-            <tr>
-                <td><label for="id_amount">{% trans "Description" %}</label></td>
-                <td>{{ form.description }}</td>
-                {# <td class="form-error">{% trans form.description.errors %}</td> #}
-            </tr>
+            {{ form }}
         </table>
         <p><input type="submit" value="{% trans "Save" %}"></p>
     </form>

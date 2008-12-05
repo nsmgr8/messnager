@@ -5,7 +5,10 @@
 
 {% block content %}
     <center>
-        {{ month|eng_month }} :: {{ year|beng_numeral }}
+        <a href="/meals/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>
+            :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
+        <a href="/meals/{{ task }}/{{ next }}/">{% trans "Next" %}</a>
+
         <table id="calendar">
             <thead>
                 <tr>

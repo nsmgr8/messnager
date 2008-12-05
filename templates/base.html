@@ -16,7 +16,7 @@
         <a href="{{ logout_url }}">{% trans "logout" %}</a>
     {% else %}
         {% if user %}
-            {% trans "Welcome" %} {{ user.nick }},
+            {% trans "Welcome" %} {{ user }},
             <a href="{{ logout_url }}"> {% trans "logout" %}</a>
         {% else %}
             {% trans "Please" %}

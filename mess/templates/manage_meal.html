@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>{% trans "Day:" %} {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+    <p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
 
      <form method="post" id="meal-form">
         <table id="meal-form-table">

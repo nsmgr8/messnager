@@ -20,20 +20,8 @@ from django.utils.translation import ugettext_lazy as _
 #from appengine_django.auth.models import User
 
 # my imports
-from models import roles
-from models import Mess
-from models import Member
-from models import Meal
-from models import Bazaar
-
-from forms import MessForm
-from forms import MemberForm
-from forms import MemberFormAdmin
-from forms import ManagerForm
-from forms import MealForm
-from forms import MealFormSet
-from forms import ManagerFormSet
-from forms import BazaarForm
+from models import *
+from forms import *
 
 def user_info():
     user = Member.current_user()
@@ -81,6 +69,20 @@ def mess_add(request):
             return HttpResponseRedirect('/mess/')
     else:
         form = MessForm()
+    params = {
+        'form': form,
+    }
+    return render("mess_add.html", params)
+
+@Member.role('manager')
+def mess_view(request):
+    if request.method == 'POST':
+        form = MessForm(data=request.POST, instance=Member.current_user().mess)
+        if form.is_valid():
+            form.save(commit=False).put()
+            return HttpResponseRedirect('/mess/view/')
+    else:
+        form = MessForm(instance=Member.current_user().mess)
     params = {
         'form': form,
     }
@@ -165,6 +167,9 @@ def register(request):
 
     return HttpResponseRedirect('/')
 
+def logout(request):
+    return HttpResponseRedirect(users.create_logout_url('/'))
+
 @Member.role('manager')
 def assign_manager(request):
     if request.method == 'POST':
@@ -202,32 +207,64 @@ def assign_manager(request):
 
     return render("assign_manager.html", params)
 
-def month_calendar():
-    #calendar.setfirstweekday(settings.FIRST_WEEK_DAY)
-    today = datetime.date.today()
+def _months(year, month):
+    iyear = int(year)
+    imonth = int(month)
+
+    next = imonth + 1
+    nexty = iyear
+    if next > 12:
+        next = 1
+        nexty += 1
+    prev = imonth - 1
+    prevy = iyear
+    if prev < 1:
+        prev = 12
+        prevy -= 1
+
     return {
-        'calendar': calendar.monthcalendar(today.year, today.month),
-        'today': today.day,
-        'month': today.month,
-        'year': today.year,
+        'month': imonth,
+        'year': year,
+        'current': '%s-%s' % (year, month),
+        'next': '%d-%d' % (nexty, next),
+        'previous': '%d-%d' % (prevy, prev),
     }
 
+def month_calendar(year, month):
+    year = int(year)
+    month = int(month)
+
+    today = datetime.date.today()
+    show_month = datetime.date(year=year, month=month, day=today.day)
+
+    if show_month == today:
+        today = today.day
+    else:
+        today = None
+
+    params = {
+        'calendar': calendar.monthcalendar(show_month.year, show_month.month),
+        'today': today,
+    }
+    params.update(_months(year, month))
+    return params
+
 @Member.role('member')
-def show_calendar(request, task):
-    params = month_calendar()
+def show_calendar(request, task, year, month):
+    params = month_calendar(year, month)
     params.update({'task': task})
     return render("calendar.html", params)
 
 @Member.role('manager')
 def edit_meal(request, year, month, day):
+    year = int(year)
+    month = int(month)
+    day = int(day)
     try:
-        today = datetime.date.today()
-        if int(year) != today.year or int(month) != today.month:
-            raise
         date = djforms.DateField()
-        s_date = "%s-%s-%s" % (year, month, day)
+        s_date = "%d-%d-%d" % (year, month, day)
         date = date.clean(s_date)
-    except:
+    except djforms.ValidationError:
         return HttpResponseRedirect('/meals/edit/')
 
     if request.method == 'POST':
@@ -276,8 +313,8 @@ def edit_meal(request, year, month, day):
         forms = zip(members, formset.forms)
 
     params = {
-        'date': '%s/%s/%s' % (day, month, year),
-        'weekday': calendar.weekday(int(year),int(month),int(day)),
+        'date': '%d/%d/%d' % (day, month, year),
+        'weekday': calendar.weekday(year, month, day),
         'forms': forms,
         'management_form': formset.management_form,
     }
@@ -285,48 +322,25 @@ def edit_meal(request, year, month, day):
 
 @Member.role('member')
 def meal_daily(request, year, month, day):
-    iyear = int(year)
-    imonth = int(month)
-    iday = int(day)
+    year = int(year)
+    month = int(month)
+    day = int(day)
     try:
-        date = datetime.date(iyear, imonth, iday)
-        today = datetime.date.today()
-        if iyear != today.year or imonth != today.month:
-            raise
-    except:
+        show_day = datetime.date(year=year, month=month, day=day)
+    except ValueError:
         return HttpResponseRedirect('/meals/view/')
 
     params = {
-        'date': '%s/%s/%s' % (day, month, year),
-        'weekday': calendar.weekday(iyear, imonth, iday),
-        'total': Meal.day_total(date),
+        'date': '%d/%d/%d' % (day, month, year),
+        'weekday': calendar.weekday(year, month, day),
+        'total': Meal.day_total(show_day),
     }
     return render("meal_daily.html", params)
 
 @Member.role('member')
 def meal_monthly(request, year, month):
-    iyear = int(year)
-    imonth = int(month)
-
-    next = imonth + 1
-    nexty = iyear
-    if next > 12:
-        next = 1
-        nexty += 1
-    prev = imonth - 1
-    prevy = iyear
-    if prev < 1:
-        prev = 12
-        prevy -= 1
-
-    params = {
-        'month': imonth,
-        'year': year,
-        'current': '%s-%s' % (year, month),
-        'next': '%d-%d' % (nexty, next),
-        'previous': '%d-%d' % (prevy, prev),
-        'total': Meal.month_total(year=year, month=month),
-    }
+    params = _months(year, month)
+    params['total'] = Meal.month_total(year=year, month=month)
     return render("meal_monthly.html", params)
 
 @Member.role('member')
@@ -340,6 +354,8 @@ def member_monthly(request, key, year, month):
         if member.mess != user.mess:
             return HttpResponseRedirect('/member/')
 
+    params = _months(year, month)
+
     month = int(month)
     year = int(year)
     start = datetime.date(year=year, month=month, day=1)
@@ -350,11 +366,11 @@ def member_monthly(request, key, year, month):
     end = datetime.date(year=year, month=month, day=1)
 
     meals = member.meal_set.filter('date >=', start).filter('date <', end).order('date').fetch(32)
-    params = {
-        'nick': member.nick,
+    params.update({
+        'member': member,
         'meals': meals,
         'total': Meal.total_member(meals),
-    }
+    })
 
     return render("member_monthly.html", params)
 
@@ -366,26 +382,33 @@ def bazaar_daily(request, year, month, day):
     try:
         date = datetime.date(iyear, imonth, iday)
         today = datetime.date.today()
-        if iyear != today.year or imonth != today.month:
+        if today < date:
             raise
     except:
         return HttpResponseRedirect('/meals/bazaar/')
 
     if request.method == 'POST':
-        form = BazaarForm(data=request.POST)
+        if users.is_current_user_admin():
+            form = BazaarFormAdmin(data=request.POST)
+        else:
+            form = BazaarForm(data=request.POST)
         if form.is_valid():
-            bazaar = Bazaar(
-                member=Member.current_user(),
-                date=date,
-                amount=form.cleaned_data['amount'])
+            member = users.is_current_user_admin() and \
+                     form.cleaned_data['member'] or Member.current_user()
+            amount = form.cleaned_data['amount']
+            bazaar = Bazaar(member=member, date=date, amount=amount)
             bazaar.put()
             return HttpResponseRedirect('/meals/bazaar/')
     else:
-        form = BazaarForm()
+        if users.is_current_user_admin():
+            form = BazaarFormAdmin()
+        else:
+            form = BazaarForm()
 
     params = {
         'form': form,
         'date': '%s/%s/%s' % (day, month, year),
         'weekday': calendar.weekday(int(year),int(month),int(day)),
     }
+
     return render("bazaar_daily.html", params)

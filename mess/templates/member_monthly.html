@@ -4,12 +4,16 @@
 {% load beng_num %}
 
 {% block title %}
-    {% trans nick %}
+    {% trans member.nick %}
 {% endblock %}
 
 {% block content %}
-    {% trans nick %}
-
+    {% trans member.nick %}
+    <center>
+        <a href="/member/{{ member.key }}/{{ previous }}/">{% trans "Previous" %}</a>
+        :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
+        <a href="/member/{{ member.key }}/{{ next }}/">{% trans "Next" %}</a>
+    </center>
     <table id="meal-view">
         <thead>
             <tr>
@@ -25,7 +29,7 @@
             {% if meals %}
                 {% for meal in meals %}
                     <tr>
-                        <td>{{ meal.date }}</td>
+                        <td>{{ meal.date|date:"d"|beng_numeral }}</td>
                         <td>{% if meal.breakfast %}X{% endif %}</td>
                         <td>{% if meal.lunch %}X{% endif %}</td>
                         <td>{% if meal.supper %}X{% endif %}</td>
