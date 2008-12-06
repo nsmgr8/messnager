@@ -10,17 +10,17 @@
         <table id="manager-form">
             <thead>
                 <tr>
-                    <td>{% trans "Member" %}</td>
-                    <td>{% trans "Manager" %}</td>
+                    <th>{% trans "Member" %}</th>
+                    <th>{% trans "Manager" %}</th>
                     {% if admin %}
-                        <td>{% trans "Mess" %}</td>
+                        <th>{% trans "Mess" %}</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for form in forms %}
                     <tr>
-                        <td>{{ form.0.nick|truncate_chars:20 }}</td>
+                        <th>{{ form.0.nick|truncate_chars:20 }}</td>
                         <td>{{form.1.role_id}}
                         {{form.1.member}}</td>
                         {% if admin %}

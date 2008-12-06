@@ -5,20 +5,20 @@
 
 {% block content %}
     <center>
-        <a href="/meals/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>
+        <a href="/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>
             :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
-        <a href="/meals/{{ task }}/{{ next }}/">{% trans "Next" %}</a>
+        <a href="/{{ task }}/{{ next }}/">{% trans "Next" %}</a>
 
         <table id="calendar">
             <thead>
                 <tr>
-                    <td>{% trans "Mon" %}</td>
-                    <td>{% trans "Tue" %}</td>
-                    <td>{% trans "Wed" %}</td>
-                    <td>{% trans "Thu" %}</td>
-                    <td>{% trans "Fri" %}</td>
-                    <td>{% trans "Sat" %}</td>
-                    <td>{% trans "Sun" %}</td>
+                    <th>{% trans "Mon" %}</th>
+                    <th>{% trans "Tue" %}</th>
+                    <th>{% trans "Wed" %}</th>
+                    <th>{% trans "Thu" %}</th>
+                    <th>{% trans "Fri" %}</th>
+                    <th>{% trans "Sat" %}</th>
+                    <th>{% trans "Sun" %}</th>
                 </tr>
             </thead>
 
@@ -32,7 +32,7 @@
                                 {% endifequal %}
                             >
                                 {% ifnotequal day 0 %}
-                                    <a href="/meals/{{task}}/{{year}}-{{month}}-{{day}}/">
+                                    <a href="/{{task}}/{{year}}-{{month}}-{{day}}/">
                                         {{ day|beng_numeral }}
                                     </a>
                                 {% endifnotequal %}

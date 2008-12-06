@@ -27,33 +27,53 @@ body {
     padding: 2px;
     font-size: 10pt;
     text-align:right;
+    border-top:1px solid #daf;
 }
 
 #navigation {
     background:#fbb;
     float:left;
     width:100%;
+    margin:2px 0;
 }
 
 #content {
     background: #ddd;
     padding: 10px;
-    position: relative;
 }
 
 #footer {
     text-align: center;
     padding: 5px;
+    background:#d7b580;
+    font-size:70%;
+    margin-top:2px;
 }
 
+/* @end */
+
+/* @group header */
+h1 {
+    font-size:200%;
+    font-weight:bold;
+}
+
+h2 {
+    font-size:90%;
+    font-weight:bold;
+    padding-left:50px;
+}
+
+a {
+    text-decoration:none;
+}
 /* @end */
 
 /* @group navigation */
 
 #navigation a {
     display: block;
-    text-decoration: none;
-    border: 1px solid black;
+    border: 1px solid #fdd;
     text-align: center;
     float: left;
     padding: 2px 5px;
@@ -70,14 +90,63 @@ body {
 
 /* @end */
 
-/* @group mess */
-#mess-form label {
+input[type=text],
+textarea,
+select {
+    border:1px solid #0fa;
+    background:#efe;
+}
+
+label {
     display: block;
 }
-/* @end */
+
+table {
+    width:100%;
+}
+
+thead th {
+    background:#0fa;
+}
+
+tbody th {
+    background:#af0;
+    border-bottom:1px solid white;
+}
+
+tfoot td {
+    background:#fbb;
+}
+
+td {
+    border-bottom:1px solid #335;
+}
+
+th, td {
+    text-align:center;
+    vertical-align:middle;
+    padding:5px 10px;
+}
+
+#calendar td {
+    padding:0px;
+}
+
+#calendar td.today a {
+    background:#fbb;
+}
+
+#calendar td a {
+    display:block;
+    padding:10px 15px;
+}
+
+#calendar td a:hover {
+    background:#af0;
+}
 
 /* @group meal */
-#member-list td,
+/*#member-list td,
 #calendar th,
 #calendar td {
     border:1px solid black;
@@ -159,7 +228,7 @@ body {
     padding:3px;
 }
 
-/* @end */
+*//* @end */
 
 /* @group member */
 #member-list td {

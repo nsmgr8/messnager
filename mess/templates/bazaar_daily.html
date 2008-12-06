@@ -11,9 +11,7 @@
     <p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
 
      <form method="post" id="bazaar-form">
-        <table id="bazaar-form">
-            {{ form }}
-        </table>
+        {{ form.as_p }}
         <p><input type="submit" value="{% trans "Save" %}"></p>
     </form>
 {% endblock %}

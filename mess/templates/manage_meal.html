@@ -14,20 +14,20 @@
         <table id="meal-form-table">
             <thead>
                 <tr>
-                    <td>{% trans "Member" %}</td>
-                    <td>{% trans "Breakfast" %}</td>
-                    <td>{% trans "Lunch" %}</td>
-                    <td>{% trans "Supper" %}</td>
-                    <td>{% trans "Extra" %}</td>
+                    <th>{% trans "Member" %}</th>
+                    <th>{% trans "Breakfast" %}</th>
+                    <th>{% trans "Lunch" %}</th>
+                    <th>{% trans "Supper" %}</th>
+                    <th>{% trans "Extra" %}</th>
                     {% if admin %}
-                        <td>{% trans "Mess" %}</td>
+                        <th>{% trans "Mess" %}</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for form in forms %}
                     <tr>
-                        <td>{{ form.0.nick|truncate_chars:20 }}</td>
+                        <th>{{ form.0.nick|truncate_chars:20 }}</th>
                         <td>{{form.1.breakfast}}</td>
                         <td>{{form.1.lunch}}</td>
                         <td>{{form.1.supper}}</td>

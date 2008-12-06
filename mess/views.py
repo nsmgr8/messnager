@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
-''' The MIT License
 
-Copyright (c) 2008 M. Nasimul Haque
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. '''
+# The MIT License
+# 
+# Copyright (c) 2008 M. Nasimul Haque
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 
 import logging
 import datetime
@@ -58,21 +59,36 @@ def user_info():
         'logout_url': users.create_logout_url('/'),
     }
 
-def render(template_name, params=None):
+def render(request, template_name, params=None):
     """ render template including user information """
+    paths = (
+        ('/', 'home'),
+        ('/mess', 'mess'),
+        ('/member', 'member'),
+        ('/bazaar', 'bazaar'),
+        ('/daily', 'daily'),
+        ('/monthly', 'monthly'),
+        ('/meals', 'meals'),
+        ('/manage', 'manager'),
+    )
+    
+    for p in paths:
+        if request.path.startswith(p[0]):
+            current_menu = p[1]
+
     params = params or {}
     today = datetime.date.today()
     params.update({
         'current_month': today.month,
         'current_year': today.year,
-        'current_menu': 'home',
+        'current_menu': current_menu,
     })
     params.update(user_info())
 
     return render_to_response(template_name, params)
 
 def home(request):
-    return render("home.html")
+    return render(request, "home.html")
 
 @Member.role('admin')
 def mess_list(request):
@@ -80,7 +96,7 @@ def mess_list(request):
     params = {
         'mess': mess,
     }
-    return render('mess_list.html', params)
+    return render(request, 'mess_list.html', params)
 
 @Member.role('admin')
 def mess_add(request):
@@ -94,7 +110,7 @@ def mess_add(request):
     params = {
         'form': form,
     }
-    return render("mess_add.html", params)
+    return render(request, "mess_add.html", params)
 
 @Member.role('manager')
 def mess_view(request):
@@ -108,7 +124,7 @@ def mess_view(request):
     params = {
         'form': form,
     }
-    return render("mess_add.html", params)
+    return render(request, "mess_add.html", params)
 
 @Member.role('member')
 def member_list(request):
@@ -120,7 +136,7 @@ def member_list(request):
         'month': today.month,
         'year': today.year,
     }
-    return render("member_list.html", params)
+    return render(request, "member_list.html", params)
 
 @Member.role('manager')
 def create_member(request):
@@ -140,7 +156,7 @@ def create_member(request):
             user = Member.current_user()
             form = MemberForm(initial={'mess': user.mess.key()})
 
-    return render("member_add.html", {'form':form})
+    return render(request, "member_add.html", {'form':form})
 
 @Member.role('manager')
 def edit_member(request, key):
@@ -156,7 +172,7 @@ def edit_member(request, key):
     else:
         form = MemberForm(instance=member)
 
-    return render("member_edit.html", {'form':form})
+    return render(request, "member_edit.html", {'form':form})
 
 
 @Member.role('admin')
@@ -227,7 +243,7 @@ def assign_manager(request):
         'management_form': formset.management_form,
     }
 
-    return render("assign_manager.html", params)
+    return render(request, "assign_manager.html", params)
 
 def _months(year, month):
     iyear = int(year)
@@ -275,7 +291,7 @@ def month_calendar(year, month):
 def show_calendar(request, task, year, month):
     params = month_calendar(year, month)
     params.update({'task': task})
-    return render("calendar.html", params)
+    return render(request, "calendar.html", params)
 
 @Member.role('manager')
 def edit_meal(request, year, month, day):
@@ -287,7 +303,7 @@ def edit_meal(request, year, month, day):
         s_date = "%d-%d-%d" % (year, month, day)
         date = date.clean(s_date)
     except djforms.ValidationError:
-        return HttpResponseRedirect('/meals/edit/')
+        return HttpResponseRedirect('/meals/')
 
     if request.method == 'POST':
         formset = MealFormSet(data=request.POST)
@@ -307,7 +323,7 @@ def edit_meal(request, year, month, day):
                     meal.put()
                 except KeyError:
                     pass
-            return HttpResponseRedirect('/meals/edit/')
+            return HttpResponseRedirect('/meals/')
 
         forms = zip(Member.all().order('nick'), formset.forms)
     else:
@@ -340,7 +356,7 @@ def edit_meal(request, year, month, day):
         'forms': forms,
         'management_form': formset.management_form,
     }
-    return render("manage_meal.html", params)
+    return render(request, "manage_meal.html", params)
 
 @Member.role('member')
 def meal_daily(request, year, month, day):
@@ -350,20 +366,20 @@ def meal_daily(request, year, month, day):
     try:
         show_day = datetime.date(year=year, month=month, day=day)
     except ValueError:
-        return HttpResponseRedirect('/meals/view/')
+        return HttpResponseRedirect('/daily/')
 
     params = {
         'date': '%d/%d/%d' % (day, month, year),
         'weekday': calendar.weekday(year, month, day),
         'total': Meal.day_total(show_day),
     }
-    return render("meal_daily.html", params)
+    return render(request, "meal_daily.html", params)
 
 @Member.role('member')
 def meal_monthly(request, year, month):
     params = _months(year, month)
     params['total'] = Meal.month_total(year=year, month=month)
-    return render("meal_monthly.html", params)
+    return render(request, "meal_monthly.html", params)
 
 @Member.role('member')
 def member_monthly(request, key, year, month):
@@ -394,7 +410,7 @@ def member_monthly(request, key, year, month):
         'total': Meal.total_member(meals),
     })
 
-    return render("member_monthly.html", params)
+    return render(request, "member_monthly.html", params)
 
 @Member.role('member')
 def bazaar_daily(request, year, month, day):
@@ -407,7 +423,7 @@ def bazaar_daily(request, year, month, day):
         if today < date:
             raise
     except:
-        return HttpResponseRedirect('/meals/bazaar/')
+        return HttpResponseRedirect('/bazaar/')
 
     if request.method == 'POST':
         if users.is_current_user_admin():
@@ -420,7 +436,7 @@ def bazaar_daily(request, year, month, day):
             amount = form.cleaned_data['amount']
             bazaar = Bazaar(member=member, date=date, amount=amount)
             bazaar.put()
-            return HttpResponseRedirect('/meals/bazaar/')
+            return HttpResponseRedirect('/bazaar/')
     else:
         if users.is_current_user_admin():
             form = BazaarFormAdmin()
@@ -433,4 +449,4 @@ def bazaar_daily(request, year, month, day):
         'weekday': calendar.weekday(int(year),int(month),int(day)),
     }
 
-    return render("bazaar_daily.html", params)
+    return render(request, "bazaar_daily.html", params)
