@@ -1,20 +1,20 @@
 {% load i18n %}
 
-<a href="/">{% trans "Home" %}</a>
+<a href="/" {% ifequal current_menu "home" %}class="current"{% endifequal %}>{% trans "Home" %}</a>
 {% if admin %}
-    <a href="/mess/">{% trans "Mess" %}</a>
+    <a href="/mess/" {% ifequal current_menu "mess" %}class="current"{% endifequal %}>{% trans "Mess" %}</a>
 {% else %}
-    {% if user %}
-        <a href="/mess/view/">{% trans "Mess" %}</a>
+    {% if manager %}
+        <a href="/mess/view/" {% ifequal current_menu "mess" %}class="current"{% endifequal %}>{% trans "Mess" %}</a>
     {% endif %}
 {% endif %}
 {% if admin or user %}
-    <a href="/member/">{% trans "Members" %}</a>
-    <a href="/meals/bazaar/">{% trans "Bazaar" %}</a>
-    <a href="/meals/view/">{% trans "Daily" %}</a>
-    <a href="/meals/view/current/">{% trans "Monthly" %}</a>
+    <a href="/member/" {% ifequal current_menu "member" %}class="current"{% endifequal %}>{% trans "Members" %}</a>
+    <a href="/meals/bazaar/" {% ifequal current_menu "bazaar" %}class="current"{% endifequal %}>{% trans "Bazaar" %}</a>
+    <a href="/meals/view/" {% ifequal current_menu "daily" %}class="current"{% endifequal %}>{% trans "Daily" %}</a>
+    <a href="/meals/view/current/" {% ifequal current_menu "monthly" %}class="current"{% endifequal %}>{% trans "Monthly" %}</a>
 {% endif %}
 {% if admin or manager %}
-    <a href="/meals/edit/">{% trans "Manage" %}</a>
-    <a href="/manager/">{% trans "Manager" %}</a>
+    <a href="/meals/edit/" {% ifequal current_menu "manage" %}class="current"{% endifequal %}>{% trans "Manage" %}</a>
+    <a href="/manager/" {% ifequal current_menu "manager" %}class="current"{% endifequal %}>{% trans "Manager" %}</a>
 {% endif %}

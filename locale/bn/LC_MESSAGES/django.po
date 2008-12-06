@@ -1,14 +1,30 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# The MIT License
+# 
+# Copyright (c) 2008 M. Nasimul Haque
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-05 18:34+0000\n"
+"POT-Creation-Date: 2008-12-06 11:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +38,7 @@ msgstr ""
 msgid "Mess"
 msgstr "মেস"
 
-#: mess/forms.py:27 mess/forms.py:37 mess/models.py:101 mess/models.py:204
+#: mess/forms.py:27 mess/forms.py:37 mess/models.py:101 mess/models.py:216
 #: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
 #: mess/templates/meal_view.html:22
 msgid "Member"
@@ -56,7 +72,7 @@ msgstr "অতিরিক্ত"
 msgid "Only numbers allowed"
 msgstr "শুধুমাত্র সংখ্যা প্রযোজ্য"
 
-#: mess/forms.py:58 mess/forms.py:65 mess/models.py:206
+#: mess/forms.py:58 mess/forms.py:65 mess/models.py:218
 msgid "Amount"
 msgstr "টাকা"
 
@@ -64,7 +80,7 @@ msgstr "টাকা"
 msgid "Name"
 msgstr "নাম"
 
-#: mess/models.py:24 mess/models.py:207
+#: mess/models.py:24 mess/models.py:219
 msgid "Description"
 msgstr "বর্ণনা"
 
@@ -88,7 +104,7 @@ msgstr "ইমেইল"
 msgid "Active"
 msgstr "সক্রিয়তা"
 
-#: mess/models.py:100 mess/models.py:205 mess/templates/member_monthly.html:20
+#: mess/models.py:100 mess/models.py:217 mess/templates/member_monthly.html:20
 msgid "Date"
 msgstr "তারিখ"
 
@@ -102,7 +118,7 @@ msgstr "ম্যানেজার"
 
 #: mess/templates/assign_manager.html:34 mess/templates/bazaar_daily.html:17
 #: mess/templates/manage_meal.html:49 mess/templates/member_form.html:7
-#: mess/templates/mess_add.html:15
+#: mess/templates/mess_add.html:13
 msgid "Save"
 msgstr "সংরক্ষণ করুন"
 
@@ -157,7 +173,7 @@ msgstr "রবি"
 msgid "Home"
 msgstr "নীড়"
 
-#: mess/templates/home.html:10 templates/base.html:19
+#: mess/templates/home.html:10 templates/base.html:20
 msgid "Welcome"
 msgstr "স্বাগতম"
 
@@ -226,26 +242,30 @@ msgid "Page not found!"
 msgstr "পাতা পাওয়া যায়নি"
 
 #: templates/base.html:6 templates/base.html.py:10
-msgid "Mess Manager"
+msgid "Messnager"
+msgstr "মেসনেজার"
+
+#: templates/base.html:11
+msgid "Mess manager"
 msgstr "মেস ম্যানেজার"
 
-#: templates/base.html:15
+#: templates/base.html:16
 msgid "Admin"
 msgstr "প্রশাসক"
 
-#: templates/base.html:16 templates/base.html.py:20
+#: templates/base.html:17 templates/base.html.py:21
 msgid "logout"
 msgstr "লগআউট"
 
-#: templates/base.html:22
+#: templates/base.html:23
 msgid "Please"
 msgstr "অনুগ্রহপূর্বক"
 
-#: templates/base.html:23
+#: templates/base.html:24
 msgid "login"
-msgstr "লগইন করুন"
+msgstr "লগইন"
 
-#: templates/base.html:36
+#: templates/base.html:37
 msgid "Developed by"
 msgstr "নির্মাতা"
 

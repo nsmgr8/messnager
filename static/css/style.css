@@ -5,16 +5,20 @@
 
 /* @group layout */
 
+body {
+    background:#eee;
+}
+
 #body {
     width: 600px;
     margin: 0 auto;
-    padding: 50px;
-    border: 1px solid red;
-    background: #eee;
+    padding: 0px 10px;
+    background: #cdcccc;
 }
 
 #header {
-    border: 1px solid red;
+    background:#aaf;
+    padding:10px 20px;
 }
 
 #subheader {
@@ -22,14 +26,17 @@
     color: green;
     padding: 2px;
     font-size: 10pt;
+    text-align:right;
 }
 
 #navigation {
+    background:#fbb;
+    float:left;
+    width:100%;
 }
 
 #content {
     background: #ddd;
-    border: 1px solid blue;
     padding: 10px;
     position: relative;
 }
@@ -37,7 +44,6 @@
 #footer {
     text-align: center;
     padding: 5px;
-    border: 1px solid red;
 }
 
 /* @end */
@@ -53,8 +59,13 @@
     padding: 2px 5px;
 }
 
-#navigation a:hover, #navigation li a:active {
-    background: #fff;
+#navigation a:hover,
+#navigation li a:active {
+    background: #af0;
+}
+
+#navigation a.current {
+    background: #0fa;
 }
 
 /* @end */
