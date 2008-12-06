@@ -2,6 +2,10 @@
 
 {% load i18n %}
 
+{% block title %}
+	{% trans "Member" %}
+{% endblock %}
+
 {% block content %}
     {% if admin or manager %}
         <a href='/member/create/'>{% trans "Add a new member" %}</a>

@@ -90,11 +90,16 @@ a {
 
 /* @end */
 
+p {
+    margin-top:5px;
+}
+
 input[type=text],
 textarea,
 select {
     border:1px solid #0fa;
     background:#efe;
+    width:100%;
 }
 
 label {
@@ -103,6 +108,15 @@ label {
 
 table {
     width:100%;
+}
+
+caption {
+    text-align:center;
+    font-weight:bold;
+    font-size:120%;
+    background:white;
+    margin-top:5px;
+    padding:5px 0px;
 }
 
 thead th {
@@ -145,90 +159,10 @@ th, td {
     background:#af0;
 }
 
-/* @group meal */
-/*#member-list td,
-#calendar th,
-#calendar td {
-    border:1px solid black;
-    text-align:center;
-    vertical-align:middle;
-}
-
-#calendar th {
-    background:black;
-    color:#ccc;
-    padding:5px 0;
-}
-
-#calendar td.today {
-    background:white;
-}
-
-#calendar td a {
-    display:block;
-    width:50px;
-    text-decoration:none;
-}
-
-#calendar td a:hover {
-    background:green;
-    color:white;
-}
-
-#manager-form,
-#meal-form,
-#meal-view {
-    width:100%;
-}
-
-#bazaar-monthly caption {
-    text-align:center;
-}
-
-#bazaar-monthly tr {
-    border:1px solid black;
-}
-
-#bazaar-monthly tr.date {
-    border-top:3px double black;
-    border-bottom:3px double black;
-}
-
-#bazaar-monthly td {
-    padding:2px 10px;
+#meal-view caption {
     text-align:right;
+    color:red;
 }
-
-#meal-form td {
-    border-left:none;
-    border-right:none;
-    width:20%;
-}
-
-#meal-view thead tr {
-    border: 3px double black;
-}
-
-#meal-form tr,
-#manager-form tr,
-#meal-view tbody tr {
-    border-bottom: 1px solid black;
-    border-left: 3px double black;
-    border-right: 3px double black;
-}
-
-#meal-view tfoot tr {
-    border: 3px double black;
-}
-
-#meal-form td,
-#manager-form td,
-#meal-view td {
-    text-align:center;
-    padding:3px;
-}
-
-*//* @end */
 
 /* @group member */
 #member-list td {

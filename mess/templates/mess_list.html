@@ -2,15 +2,15 @@
 
 {% load i18n %}
 
+{% block title %}
+	{% trans "Mess" %}
+{% endblock %}
+
 {% block content %}
     {% if admin or manager %}
         <a href='/mess/add/'>{% trans "Add a new mess" %}</a>
     {% endif %}
-    <table id='mess-list'>
         {% for m in mess %}
-            <tr>
-                <td>{{ m.name }}</td>
-            </tr>
+			<p>{{ m.name }}</p>
         {% endfor %}
-    </table>
 {% endblock %}

@@ -3,6 +3,10 @@
 {% load i18n %}
 {% load beng_num %}
 
+{% block title %}
+	{% trans "Calender" %}
+{% endblock %}
+
 {% block content %}
     <center>
         <a href="/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>

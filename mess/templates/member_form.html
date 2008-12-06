@@ -2,7 +2,12 @@
 
 <form method="post">
     <table id="member-form-table">
-        {{ form }}
+		<thead>
+			<tr><th colspan="2">{% trans "Add a new member" %}</th></tr>
+		</thead>
+		<tbody>
+	        {{ form }}
+		</tbody>
     </table>
     <p><input type="submit" value="{% trans "Save" %}"></p>
 </form>

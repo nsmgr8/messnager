@@ -249,16 +249,11 @@ def _months(year, month):
     iyear = int(year)
     imonth = int(month)
 
-    next = imonth + 1
-    nexty = iyear
-    if next > 12:
-        next = 1
-        nexty += 1
-    prev = imonth - 1
-    prevy = iyear
-    if prev < 1:
-        prev = 12
-        prevy -= 1
+    nexty, next = divmod(imonth+1, 12)
+    nexty += iyear
+
+    prevy, prev = divmod(imonth-1, 12)
+    prevy += iyear
 
     return {
         'month': imonth,
@@ -397,11 +392,8 @@ def member_monthly(request, key, year, month):
     month = int(month)
     year = int(year)
     start = datetime.date(year=year, month=month, day=1)
-    month += 1
-    if month > 12:
-        month = 1
-        year += 1
-    end = datetime.date(year=year, month=month, day=1)
+    y, month = divmod(month+1, 12)
+    end = datetime.date(year=year+y, month=month, day=1)
 
     meals = member.meal_set.filter('date >=', start).filter('date <', end).order('date').fetch(32)
     params.update({
@@ -446,7 +438,7 @@ def bazaar_daily(request, year, month, day):
     params = {
         'form': form,
         'date': '%s/%s/%s' % (day, month, year),
-        'weekday': calendar.weekday(int(year),int(month),int(day)),
+        'weekday': calendar.weekday(iyear, imonth, iday),
     }
 
     return render(request, "bazaar_daily.html", params)

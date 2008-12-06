@@ -136,11 +136,8 @@ class Meal(BaseModel):
         month = int(month)
         year = int(year)
         start = datetime.date(year=year, month=month, day=1)
-        month += 1
-        if month > 12:
-            month = 1
-            year += 1
-        end = datetime.date(year=year, month=month, day=1)
+        y, month = divmod(month+1, 12)
+        end = datetime.date(year=year+y, month=month, day=1)
 
         if users.is_current_user_admin():
             members = Member.all()
