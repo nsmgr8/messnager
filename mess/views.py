@@ -214,7 +214,7 @@ def edit_member(request, key):
     member = Member.get(key)
     if not member:
         return HttpResponseRedirect('/member/')
-    else:
+    elif not users.is_current_user_admin():
         user = Member.current_user()
         if user.mess != member.mess:
             return HttpResponseRedirect('/member/')
