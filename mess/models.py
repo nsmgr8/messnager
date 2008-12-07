@@ -135,7 +135,7 @@ class Meal(BaseModel):
         return Meal._total_dict(members, date)
 
     @staticmethod
-    def month_total(month, year):
+    def month_total(month, year, key):
         month = int(month)
         year = int(year)
         start = datetime.date(year=year, month=month, day=1)
@@ -146,15 +146,19 @@ class Meal(BaseModel):
         end = datetime.date(year=year, month=month, day=1)
 
         if users.is_current_user_admin():
-            members = Member.all()
+            if key:
+                mess = Mess.get(key)
+                members = Member.all().filter('mess =', mess)
+            else:
+                members = Member.all()
         else:
             member = Member.current_user()
             members = Member.all().filter('mess =', member.mess)
 
-        return Meal._total_dict(members, start, end)
+        return Meal._total_dict(members, start, end, key)
 
     @staticmethod
-    def _total_dict(members, start, end=None):
+    def _total_dict(members, start, end=None, key=None):
         total = {
             'member': {},
             'breakfast': 0,
@@ -173,7 +177,9 @@ class Meal(BaseModel):
 
             if end:
                 meals = member.meal_set.filter('date >=', start).filter('date <', end)
-                if not users.is_current_user_admin():
+                if users.is_current_user_admin() and not key:
+                    pass
+                else:
                     bazaar = member.bazaar_set.filter('date >=', start).filter('date <', end).order('date')
                     for b in bazaar:
                         total['cost'] += b.amount

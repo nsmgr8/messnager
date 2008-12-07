@@ -49,7 +49,7 @@ urlpatterns = patterns('mess.views',
     (r'^daily/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', 'meal_daily'),
     (r'^meals/(?P<year>\d{4})-(?P<month>\d{1,2})-(?P<day>\d{1,2})/$', 'edit_meal'),
     (r'^monthly/$', 'meal_monthly', {'year':today.year,'month':today.month}),
-    (r'^monthly/(?P<year>\d{4})-(?P<month>\d{1,2})/$', 'meal_monthly'),
+    (r'^monthly/(?P<year>\d{4})-(?P<month>\d{1,2})/(?P<key>.*)$', 'meal_monthly'),
 
     (r'^register/$', 'register'),
     (r'^logout/$', 'logout'),

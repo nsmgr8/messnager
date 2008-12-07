@@ -16,6 +16,7 @@
 					<th>{{ m.name }}</th>
 					<td><a href="/mess/edit/{{ m.key }}/">{% trans "Edit" %}</a></td>
 					<td><a href="/mess/delete/{{ m.key }}/">{% trans "Delete" %}</a></td>
+					<td><a href="/monthly/{{ current_year }}-{{ current_month }}/{{ m.key }}">{% trans "Monthly" %}</a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

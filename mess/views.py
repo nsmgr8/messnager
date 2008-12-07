@@ -433,9 +433,10 @@ def meal_daily(request, year, month, day):
     return render(request, "meal_daily.html", params)
 
 @Member.role('member')
-def meal_monthly(request, year, month):
+def meal_monthly(request, year, month, key=None):
     params = _months(year, month)
-    params['total'] = Meal.month_total(year=year, month=month)
+    params['total'] = Meal.month_total(year=year, month=month, key=key)
+    params['key'] = key
     return render(request, "meal_monthly.html", params)
 
 @Member.role('member')
