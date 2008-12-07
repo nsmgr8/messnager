@@ -124,7 +124,7 @@ def mess_add(request):
 
 @Member.role('manager')
 def mess_edit(request, key=None):
-    if key:
+    if users.is_current_user_admin() and key:
         mess = Mess.get(key)
     else:
         mess = Member.current_user().mess
