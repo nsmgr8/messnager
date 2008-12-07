@@ -9,9 +9,9 @@
 
 {% block meal_title %}
     <center>
-        <a href="/monthly/{{ previous }}/{% if admin %}{{ key }}{% endif %}">{% trans "Previous" %}</a>
+        <a href="/monthly/{{ previous }}/{% if admin and key %}{{ key }}{% endif %}">{% trans "Previous" %}</a>
         :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
-        <a href="/monthly/{{ next }}/{% if admin %}{{ key }}{% endif %}">{% trans "Next" %}</a>
+        <a href="/monthly/{{ next }}/{% if admin and key %}{{ key }}{% endif %}">{% trans "Next" %}</a>
     </center>
 {% endblock %}
 
