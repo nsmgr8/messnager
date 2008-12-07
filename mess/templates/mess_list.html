@@ -7,16 +7,27 @@
 {% endblock %}
 
 {% block content %}
-	<a href='/mess/add/'>{% trans "Add a new mess" %}</a>
+	{% if admin %}
+		<a href='/mess/add/'>{% trans "Add a new mess" %}</a>
+	{% endif %}
 	
 	<table id="mess-list">
 		<tbody>
 			{% for m in mess %}
 				<tr>
-					<th>{{ m.name }}</th>
-					<td><a href="/mess/edit/{{ m.key }}/">{% trans "Edit" %}</a></td>
-					<td><a href="/mess/delete/{{ m.key }}/">{% trans "Delete" %}</a></td>
-					<td><a href="/monthly/{{ current_year }}-{{ current_month }}/{{ m.key }}">{% trans "Monthly" %}</a></td>
+					<th><a href="/mess/view/{{ m.key }}">{{ m.name }}</a></th>
+					{% if admin %}
+						<td><a href="/mess/edit/{{ m.key }}/">{% trans "Edit" %}</a></td>
+						<td><a href="/mess/delete/{{ m.key }}/">{% trans "Delete" %}</a></td>
+						<td><a href="/monthly/{{ current_year }}-{{ current_month }}/{{ m.key }}">{% trans "Monthly" %}</a></td>
+					{% else %}
+						<td>{{ m.description }}</td>
+						{% if manager %}
+							{% ifequal user.mess m  %}
+								<td><a href="/mess/edit/{{ m.key }}/">{% trans "Edit" %}</a></td>
+							{% endifequal %}
+						{% endif %}
+					{% endif %}
 				</tr>
 			{% endfor %}
 		</tbody>

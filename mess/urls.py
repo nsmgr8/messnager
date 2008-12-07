@@ -31,7 +31,7 @@ urlpatterns = patterns('mess.views',
 
     (r'^mess/$', 'mess_list'),
     (r'^mess/add/$', 'mess_add'),
-    (r'^mess/view/$', 'mess_view'),
+    (r'^mess/view/(?P<key>.*)$', 'mess_view'),
     (r'^mess/edit/$', 'mess_edit'),
     (r'^mess/edit/(?P<key>.*)/$', 'mess_edit'),
     (r'^mess/delete/(?P<key>.*)/$', 'mess_delete'),

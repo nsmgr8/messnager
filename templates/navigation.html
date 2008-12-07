@@ -1,13 +1,7 @@
 {% load i18n %}
 
 <a href="/" {% ifequal current_menu "home" %}class="current"{% endifequal %}>{% trans "Home" %}</a>
-{% if admin %}
-    <a href="/mess/" {% ifequal current_menu "mess" %}class="current"{% endifequal %}>{% trans "Mess" %}</a>
-{% else %}
-    {% if manager %}
-        <a href="/mess/view/" {% ifequal current_menu "mess" %}class="current"{% endifequal %}>{% trans "Mess" %}</a>
-    {% endif %}
-{% endif %}
+<a href="/mess/" {% ifequal current_menu "mess" %}class="current"{% endifequal %}>{% trans "Mess" %}</a>
 {% if admin or user %}
     <a href="/member/" {% ifequal current_menu "member" %}class="current"{% endifequal %}>{% trans "Member" %}</a>
     <a href="/bazaar/" {% ifequal current_menu "bazaar" %}class="current"{% endifequal %}>{% trans "Bazaar" %}</a>

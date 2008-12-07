@@ -90,13 +90,23 @@ def render(request, template_name, params=None):
 def home(request):
     return render(request, "home.html")
 
-@Member.role('admin')
 def mess_list(request):
     mess = Mess.all()
     params = {
         'mess': mess,
     }
     return render(request, 'mess_list.html', params)
+
+def mess_view(request, key=None):
+    if key:
+        mess = Mess.get(key)
+    else:
+        try:
+            mess = Member.current_user().mess
+        except:
+            return HttpResponseRedirect('/mess/')
+    params = { 'mess': mess }
+    return render(request, "mess_view.html", params)
 
 @Member.role('admin')
 def mess_add(request):
@@ -111,12 +121,6 @@ def mess_add(request):
         'form': form,
     }
     return render(request, "mess_add.html", params)
-
-@Member.role('member')
-def mess_view(request):
-    mess = Member.current_user().mess
-    params = { 'mess': mess }
-    return render(request, "mess_view.html", params)
 
 @Member.role('manager')
 def mess_edit(request, key=None):
