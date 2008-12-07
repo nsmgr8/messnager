@@ -214,6 +214,10 @@ def edit_member(request, key):
     member = Member.get(key)
     if not member:
         return HttpResponseRedirect('/member/')
+    else:
+        user = Member.current_user()
+        if user.mess != member.mess:
+            return HttpResponseRedirect('/member/')
 
     if request.method == 'POST':
         form = MemberForm(data=request.POST, instance=member)
@@ -439,6 +443,8 @@ def meal_daily(request, year, month, day):
 
 @Member.role('member')
 def meal_monthly(request, year, month, key=None):
+    if key and not users.is_current_user_admin():
+        return HttpResponseRedirect('/')
     params = _months(year, month)
     params['total'] = Meal.month_total(year=year, month=month, key=key)
     params['key'] = key
