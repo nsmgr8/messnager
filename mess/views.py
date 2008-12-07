@@ -228,6 +228,7 @@ def edit_member(request, key):
                 if other and  member != other:
                     form._errors['nick'] = {_("user exists"): _("user exists")}
                     raise
+                entity.put()
                 return HttpResponseRedirect('/member/')
             except:
                 pass
