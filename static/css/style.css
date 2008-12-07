@@ -164,6 +164,11 @@ th, td {
     color:red;
 }
 
+.errorlist {
+    float:right;
+    color:red;
+}
+
 /* @group member */
 #member-list td {
     padding: 0px 10px;

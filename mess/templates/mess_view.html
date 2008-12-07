@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans "Mess" %}
+{% endblock %}
+
+{% block content %}
+	<p>{% trans "Name" %}: {{ mess.name }}</p>
+	<p>{{ mess.description }}</p>
+	
+	{% if manager %}
+		<p><a href="/mess/edit/">{% trans "Edit" %}</a></p>
+	{% endif %}
+{% endblock %}

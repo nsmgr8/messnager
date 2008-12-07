@@ -7,10 +7,17 @@
 {% endblock %}
 
 {% block content %}
-    {% if admin or manager %}
-        <a href='/mess/add/'>{% trans "Add a new mess" %}</a>
-    {% endif %}
-        {% for m in mess %}
-			<p>{{ m.name }}</p>
-        {% endfor %}
+	<a href='/mess/add/'>{% trans "Add a new mess" %}</a>
+	
+	<table id="mess-list">
+		<tbody>
+			{% for m in mess %}
+				<tr>
+					<th>{{ m.name }}</th>
+					<td><a href="/mess/edit/{{ m.key }}/">{% trans "Edit" %}</a></td>
+					<td><a href="/mess/delete/{{ m.key }}/">{% trans "Delete" %}</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

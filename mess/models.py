@@ -93,6 +93,9 @@ class Member(BaseModel):
                     (role == 'manager' and user.role_id == roles['manager']):
                         logging.info("Allowing role (%s) for (%s)" % (role, user.nick))
                         return handler_method(self, *args, **kwargs)
+                elif role == 'active' and user.active:
+                    logging.info("Allowing role (%s) for (%s)" % (role, user.nick))
+                    return handler_method(self, *args, **kwargs)
                 else:
                     roles_rev = {}
                     for key, value in roles.iteritems():

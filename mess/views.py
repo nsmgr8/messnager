@@ -112,19 +112,54 @@ def mess_add(request):
     }
     return render(request, "mess_add.html", params)
 
-@Member.role('manager')
+@Member.role('member')
 def mess_view(request):
-    if request.method == 'POST':
-        form = MessForm(data=request.POST, instance=Member.current_user().mess)
-        if form.is_valid():
-            form.save(commit=False).put()
-            return HttpResponseRedirect('/mess/view/')
+    mess = Member.current_user().mess
+    params = { 'mess': mess }
+    return render(request, "mess_view.html", params)
+
+@Member.role('manager')
+def mess_edit(request, key=None):
+    if key:
+        mess = Mess.get(key)
     else:
-        form = MessForm(instance=Member.current_user().mess)
+        mess = Member.current_user().mess
+    if request.method == 'POST':
+        form = MessForm(data=request.POST, instance=mess)
+        if form.is_valid():
+            entity = form.save(commit=False)
+            try:
+                other = Mess.all().filter('name =', entity.name).get()
+                if other and mess != other:
+                    form._errors['name'] = {_("mess exists"): _("mess exists")}
+                    raise
+                entity.put()
+                return HttpResponseRedirect('/mess/view/')
+            except:
+                pass
+    else:
+        form = MessForm(instance=mess)
     params = {
         'form': form,
     }
     return render(request, "mess_add.html", params)
+
+@Member.role('admin')
+def mess_delete(request, key):
+    mess = Mess.get(key)
+    if not mess:
+        return HttpResponseRedirect('/mess/')
+    
+    members = Member.all().filter('mess =', mess)
+    for member in members:
+        for bazaar in member.bazaar_set:
+            bazaar.delete()
+        for meal in member.meal_set:
+            meal.delete()
+        member.delete()
+    
+    mess.delete()
+    return HttpResponseRedirect('/mess/')
 
 @Member.role('member')
 def member_list(request):
@@ -145,10 +180,22 @@ def create_member(request):
             form = MemberFormAdmin(data=request.POST)
         else:
             form = MemberForm(data=request.POST)
-        if form.is_valid():
-            entity = form.save(commit=False)
-            entity.put()
-            return HttpResponseRedirect('/member/')
+        
+        try:
+            if form.is_valid():
+                entity = form.save(commit=False)
+                member = Member.all().filter('email =', entity.email).get()
+                if member:
+                    form._errors['email'] = {_("user exists"): _("user exists")}
+                    raise
+                member = Member.all().filter('nick =', entity.nick).get()
+                if member:
+                    form._errors['nick'] = {_("user exists"): _("user exists")}
+                    raise
+                entity.put()
+                return HttpResponseRedirect('/member/')
+        except:
+            pass
     else:
         if users.is_current_user_admin():
             form = MemberFormAdmin()
@@ -167,13 +214,23 @@ def edit_member(request, key):
     if request.method == 'POST':
         form = MemberForm(data=request.POST, instance=member)
         if form.is_valid():
-            form.save(commit=False).put()
-            return HttpResponseRedirect('/member/')
+            try:
+                entity = form.save(commit=False)
+                other = Member.all().filter('email =', entity.email).get()
+                if other and member != other:
+                    form._errors['email'] = {_("user exists"): _("user exists")}
+                    raise
+                other = Member.all().filter('nick =', entity.nick).get()
+                if other and  member != other:
+                    form._errors['nick'] = {_("user exists"): _("user exists")}
+                    raise
+                return HttpResponseRedirect('/member/')
+            except:
+                pass
     else:
         form = MemberForm(instance=member)
 
     return render(request, "member_edit.html", {'form':form})
-
 
 @Member.role('admin')
 def delete_member(request, key):
@@ -182,9 +239,10 @@ def delete_member(request, key):
 
     member = Member.get(key)
     if member:
-        if not member.user == users.get_current_user():
-            logging.info("deleting member %s" % member.nick)
-            member.delete()
+        if not member.role_id == roles['manager']:
+            if not member.user == users.get_current_user():
+                logging.info("deleting member %s" % member.nick)
+                member.delete()
     return HttpResponseRedirect('/member/')
 
 def register(request):
@@ -411,7 +469,7 @@ def member_monthly(request, key, year, month):
 
     return render(request, "member_monthly.html", params)
 
-@Member.role('member')
+@Member.role('active')
 def bazaar_daily(request, year, month, day):
     iyear = int(year)
     imonth = int(month)
