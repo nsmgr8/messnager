@@ -206,6 +206,9 @@ class Meal(BaseModel):
                 total['total'] += total['breakfast'] / 2.
             else:
                 total['total'] += total['breakfast']
+        else:
+            total['total'] += total['breakfast'] / 2.
+
         total['members'] = len(total['member'])
         if total['total'] != 0 and total['cost'] != 0:
             total['rate'] = total['cost'] / total['total']
@@ -240,6 +243,8 @@ class Meal(BaseModel):
                 total['total'] += total['breakfast'] / 2.
             else:
                 total['total'] += total['breakfast']
+        else:
+            total['total'] += total['breakfast'] / 2.
 
         return total
 

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+	<META HTTP-EQUIV="Refresh"
+	      CONTENT="5; URL=http://{{ host_path }}/bazaar/">
+{% endblock %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans "Bazaar" %}
+{% endblock %}
+
+{% block content %}
+	<p>{% trans "Sorry! You cannot add bazaar in future!" %}</p>
+	<p>{% trans "Select today or any past day. Going back to the" %}
+	<a href="/bazaar/">{% trans "Calender" %}</a>.</p>
+{% endblock %}

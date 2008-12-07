@@ -82,6 +82,7 @@ def render(request, template_name, params=None):
         'current_month': today.month,
         'current_year': today.year,
         'current_menu': current_menu,
+        'host_path': request.get_host(),
     })
     params.update(user_info())
 
@@ -492,7 +493,7 @@ def bazaar_daily(request, year, month, day):
         if today < date:
             raise
     except:
-        return HttpResponseRedirect('/bazaar/')
+        return render(request, "bazaar_future.html")
 
     if request.method == 'POST':
         if users.is_current_user_admin():
