@@ -36,6 +36,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
 
 # appengine_django imports
@@ -86,7 +88,13 @@ def render(request, template_name, params=None):
     })
     params.update(user_info())
 
-    return render_to_response(template_name, params)
+    try:
+        translation.activate(params['user'].mess.language)
+    except:
+        translation.activate(settings.LANGUAGE_CODE)
+
+    request.LANGUAGE_CODE = translation.get_language()
+    return render_to_response(template_name, params, context_instance=RequestContext(request))
 
 def home(request):
     return render(request, "home.html")

@@ -23,13 +23,13 @@
 # THE SOFTWARE.
 
 from django import template
-from django.conf import settings
+from django.utils.translation import get_language
 
 register = template.Library()
 
 @register.filter
 def beng_numeral(value):
-    if not settings.LANGUAGE_CODE == 'bn':
+    if not get_language() == 'bn':
         return value
 
     trans_dict = {
@@ -55,7 +55,7 @@ def beng_numeral(value):
 def beng_month(value):
     class BengaliLocalException:
         pass
-    if not settings.LANGUAGE_CODE == 'bn':
+    if not get_language() == 'bn':
         raise BengaliLocalException
 
     month_names = {
@@ -77,7 +77,7 @@ def beng_month(value):
 
 @register.filter
 def eng_month(value):
-    if not settings.LANGUAGE_CODE == 'bn':
+    if not get_language() == 'bn':
         month_names = {
             1: 'January',
             2: 'February',
@@ -114,7 +114,7 @@ def eng_month(value):
 
 @register.filter
 def beng_weekday(value):
-    if not settings.LANGUAGE_CODE == 'bn':
+    if not get_language() == 'bn':
         weekdays = {
             0: 'Monday',
             1: 'Tuesday',

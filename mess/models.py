@@ -45,6 +45,7 @@ class Mess(BaseModel):
     name = db.StringProperty(verbose_name=_('Name'), required=True)
     description = db.TextProperty(verbose_name=_('Description'))
     breakfast = db.BooleanProperty(verbose_name=_('Half breakfast'), default=True)
+    language = db.StringProperty(verbose_name=_('Language'), default='en-us')
 
     def __unicode__(self):
         return self.name

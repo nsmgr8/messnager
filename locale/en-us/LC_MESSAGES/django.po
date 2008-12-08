@@ -1,32 +1,16 @@
-# The MIT License
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Copyright (c) 2008 M. Nasimul Haque
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: messnager 0.9\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 17:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Nasimul Haque <nasim.haque@gmail.com>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,20 +18,20 @@ msgstr ""
 
 #: mess/forms.py:35 mess/models.py:48
 msgid "Language"
-msgstr "ভাষা"
+msgstr ""
 
 #: mess/forms.py:48 mess/models.py:61 mess/templates/assign_manager.html:16
 #: mess/templates/manage_meal.html:23 mess/templates/mess_list.html:6
 #: mess/templates/mess_view.html:6 templates/navigation.html:4
 msgid "Mess"
-msgstr "মেস"
+msgstr ""
 
 #: mess/forms.py:55 mess/forms.py:65 mess/models.py:127 mess/models.py:253
 #: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
 #: mess/templates/meal_view.html:18 mess/templates/member_list.html:6
 #: templates/navigation.html:6
 msgid "Member"
-msgstr "সদস্য"
+msgstr ""
 
 #: mess/forms.py:56 mess/models.py:58
 msgid "Role ID"
@@ -56,287 +40,285 @@ msgstr ""
 #: mess/forms.py:67 mess/models.py:121 mess/templates/manage_meal.html:18
 #: mess/templates/meal_view.html:19 mess/templates/member_monthly.html:21
 msgid "Breakfast"
-msgstr "সকালের নাস্তা"
+msgstr ""
 
 #: mess/forms.py:68 mess/models.py:122 mess/templates/manage_meal.html:19
 #: mess/templates/meal_view.html:20 mess/templates/member_monthly.html:22
 msgid "Lunch"
-msgstr "দুপুরের খাবার"
+msgstr ""
 
 #: mess/forms.py:69 mess/models.py:123 mess/templates/manage_meal.html:20
 #: mess/templates/meal_view.html:21 mess/templates/member_monthly.html:23
 msgid "Supper"
-msgstr "রাতের খাবার"
+msgstr ""
 
 #: mess/forms.py:72 mess/models.py:124 mess/templates/manage_meal.html:21
 #: mess/templates/meal_view.html:22 mess/templates/member_monthly.html:24
 msgid "Extra"
-msgstr "অতিরিক্ত"
+msgstr ""
 
 #: mess/forms.py:77
 msgid "Only numbers allowed"
-msgstr "শুধুমাত্র সংখ্যা প্রযোজ্য"
+msgstr ""
 
 #: mess/forms.py:87 mess/forms.py:94 mess/models.py:255
 #: mess/templates/meal_monthly.html:25
 msgid "Amount"
-msgstr "টাকা"
+msgstr ""
 
 #: mess/locales.py:4
 msgid "Bangla"
-msgstr "বাংলা"
+msgstr ""
 
 #: mess/locales.py:5
 msgid "English"
-msgstr "ইংরেজী"
+msgstr ""
 
 #: mess/models.py:45 mess/templates/meal_monthly.html:23
 #: mess/templates/mess_view.html:10
 msgid "Name"
-msgstr "নাম"
+msgstr ""
 
 #: mess/models.py:46 mess/models.py:256
 msgid "Description"
-msgstr "বর্ণনা"
+msgstr ""
 
 #: mess/models.py:47
 msgid "Half breakfast"
-msgstr "অর্ধ নাস্তা"
+msgstr ""
 
 #: mess/models.py:55
 msgid "User"
-msgstr "ব্যবহারকারী"
+msgstr ""
 
 #: mess/models.py:56
 msgid "Nickname"
-msgstr "ডাকনাম"
+msgstr ""
 
 #: mess/models.py:57
 msgid "Email"
-msgstr "ইমেইল"
+msgstr ""
 
 #: mess/models.py:59
 msgid "Active"
-msgstr "সক্রিয়তা"
+msgstr ""
 
 #: mess/models.py:126 mess/models.py:254 mess/templates/meal_monthly.html:24
 #: mess/templates/member_monthly.html:20
 msgid "Date"
-msgstr "তারিখ"
+msgstr ""
 
 #: mess/views.py:147
 msgid "mess exists"
-msgstr "আরেকটা মেস আছে"
+msgstr ""
 
 #: mess/views.py:202 mess/views.py:206 mess/views.py:238 mess/views.py:242
 msgid "user exists"
-msgstr "আরেকজন সদস্য আছেন"
+msgstr ""
 
 #: mess/templates/assign_manager.html:6
 msgid "Assign manager"
-msgstr "ম্যানেজার নিয়োগ"
+msgstr ""
 
 #: mess/templates/assign_manager.html:14 templates/navigation.html:13
 msgid "Manager"
-msgstr "ম্যানেজার"
+msgstr ""
 
 #: mess/templates/assign_manager.html:34 mess/templates/bazaar_daily.html:15
 #: mess/templates/manage_meal.html:49 mess/templates/member_form.html:12
 #: mess/templates/mess_add.html:13
 msgid "Save"
-msgstr "সংরক্ষণ করুন"
+msgstr ""
 
 #: mess/templates/bazaar_daily.html:7
 msgid "Manage Bazaar"
-msgstr "বাজার নিয়ন্ত্রণ"
+msgstr ""
 
 #: mess/templates/bazaar_daily.html:11 mess/templates/manage_meal.html:11
 #: mess/templates/meal_daily.html:11
 msgid "Day"
-msgstr "রোজ"
+msgstr ""
 
 #: mess/templates/bazaar_future.html:11 mess/templates/meal_monthly.html:20
 #: templates/navigation.html:7
 msgid "Bazaar"
-msgstr "বাজার"
+msgstr ""
 
 #: mess/templates/bazaar_future.html:15
 msgid "Sorry! You cannot add bazaar in future!"
-msgstr "দুঃখিত! ভবিষ্যত সময়ে বাজার যোগ করা যাবে না!"
+msgstr ""
 
 #: mess/templates/bazaar_future.html:16
 msgid "Select today or any past day. Going back to the"
-msgstr "আজ অথবা পুরনো দিন বাছাই করুন। ফিরে যাচ্ছি"
+msgstr ""
 
 #: mess/templates/bazaar_future.html:17 mess/templates/calendar.html:7
 msgid "Calender"
-msgstr "ক্যালেন্ডার"
+msgstr ""
 
 #: mess/templates/calendar.html:12 mess/templates/meal_monthly.html:12
 #: mess/templates/member_monthly.html:13
 msgid "Previous"
-msgstr "পূর্ববর্তী"
+msgstr ""
 
 #: mess/templates/calendar.html:14 mess/templates/meal_monthly.html:14
 #: mess/templates/member_monthly.html:15
 msgid "Next"
-msgstr "পরবর্তী"
+msgstr ""
 
 #: mess/templates/calendar.html:19
 msgid "Mon"
-msgstr "সোম"
+msgstr ""
 
 #: mess/templates/calendar.html:20
 msgid "Tue"
-msgstr "মঙ্গল"
+msgstr ""
 
 #: mess/templates/calendar.html:21
 msgid "Wed"
-msgstr "বুধ"
+msgstr ""
 
 #: mess/templates/calendar.html:22
 msgid "Thu"
-msgstr "বৃহঃ"
+msgstr ""
 
 #: mess/templates/calendar.html:23
 msgid "Fri"
-msgstr "শুক্র"
+msgstr ""
 
 #: mess/templates/calendar.html:24
 msgid "Sat"
-msgstr "শনি"
+msgstr ""
 
 #: mess/templates/calendar.html:25
 msgid "Sun"
-msgstr "রবি"
+msgstr ""
 
 #: mess/templates/home.html:6 templates/navigation.html:3
 msgid "Home"
-msgstr "নীড়"
+msgstr ""
 
 #: mess/templates/home.html:10 templates/base.html:20
 msgid "Welcome"
-msgstr "স্বাগতম"
+msgstr ""
 
 #: mess/templates/home.html:11
 msgid "If you cannot login, you are not included in any of the listed mess."
-msgstr "আপনি কোন মেসের সদস্য না হলে এই মুহূর্তে লগইন করতে পারবেন না।"
+msgstr ""
 
 #: mess/templates/home.html:12
 msgid "We are in beta testing at the moment."
-msgstr "এখন আমরা সাইটের বেটা পরীক্ষা চালাচ্ছি।"
+msgstr ""
 
 #: mess/templates/home.html:13
 msgid ""
 "Please try to find an invitation <a href=\"http://forum.projanmo.com/t9103."
 "html\">here</a>."
 msgstr ""
-"<a href=\"http://forum.projanmo.com/t9103.html\">এখানে</a> বেটা পরীক্ষায় অংশ "
-"নেওয়ার জন্য চেষ্টা করতে পারেন।"
 
 #: mess/templates/home.html:14
 msgid "Thank you for the understanding!"
-msgstr "ধন্যবাদ!"
+msgstr ""
 
 #: mess/templates/manage_meal.html:7
 msgid "Manage Meals"
-msgstr "মিল নিয়ন্ত্রণ"
+msgstr ""
 
 #: mess/templates/meal_daily.html:7
 msgid "Daily Meal"
-msgstr "দৈনিক"
+msgstr ""
 
 #: mess/templates/meal_monthly.html:7
 msgid "Monthly Meals"
-msgstr "মাসিক"
+msgstr ""
 
 #: mess/templates/meal_monthly.html:41 mess/templates/meal_view.html:23
 #: mess/templates/member_monthly.html:48
 msgid "Total"
-msgstr "সর্বমোট"
+msgstr ""
 
 #: mess/templates/meal_view.html:13
 msgid "Meal Rate"
-msgstr "মিল রেট"
+msgstr ""
 
 #: mess/templates/meal_view.html:25
 msgid "Cost"
-msgstr "খরচ"
+msgstr ""
 
 #: mess/templates/meal_view.html:55 mess/templates/member_monthly.html:41
 msgid "No meal data available"
-msgstr "মিল ডাটা নাই"
+msgstr ""
 
 #: mess/templates/member_add.html:6
 msgid "New Member"
-msgstr "নতুন সদস্য"
+msgstr ""
 
 #: mess/templates/member_edit.html:6
 msgid "Edit Member"
-msgstr "সদস্য সম্পাদনা"
+msgstr ""
 
 #: mess/templates/member_form.html:6 mess/templates/member_list.html:11
 msgid "Add a new member"
-msgstr "নতুন সদস্য যোগ করুন"
+msgstr ""
 
 #: mess/templates/member_list.html:24 mess/templates/mess_list.html:20
 #: mess/templates/mess_list.html.py:27
 msgid "Edit"
-msgstr "সম্পাদনা"
+msgstr ""
 
 #: mess/templates/member_list.html:27 mess/templates/mess_list.html:21
 msgid "Delete"
-msgstr "মুছে ফেলুন"
+msgstr ""
 
 #: mess/templates/mess_add.html:6
 msgid "New Mess"
-msgstr "নতুন মেস"
+msgstr ""
 
 #: mess/templates/mess_list.html:11
 msgid "Add a new mess"
-msgstr "নতুন মেস যোগ করুন"
+msgstr ""
 
 #: mess/templates/mess_list.html:22 templates/navigation.html:9
 msgid "Monthly"
-msgstr "মাসিক"
+msgstr ""
 
 #: templates/500.html:6
 msgid "Page not found!"
-msgstr "পাতা পাওয়া যায়নি"
+msgstr ""
 
 #: templates/base.html:6 templates/base.html.py:10
 msgid "Messnager"
-msgstr "মেসনেজার"
+msgstr ""
 
 #: templates/base.html:11
 msgid "Mess Manager"
-msgstr "মেস ম্যানেজার"
+msgstr ""
 
 #: templates/base.html:16
 msgid "Admin"
-msgstr "প্রশাসক"
+msgstr ""
 
 #: templates/base.html:17 templates/base.html.py:21
 msgid "logout"
-msgstr "লগআউট"
+msgstr ""
 
 #: templates/base.html:23
 #, python-format
 msgid "Please <a href=\"%(login_url)s\">login</a> here"
-msgstr "অনুগ্রহপূর্বক <a href=\"%(login_url)s\">লগইন</a> করুন"
+msgstr ""
 
 #: templates/base.html:36
 msgid "Developed by"
-msgstr "নির্মাতা"
+msgstr ""
 
 #: templates/base.html:36
 msgid "M. Nasimul Haque, Copyright  &copy; 2008"
-msgstr "ম. নাসিমুল হক, কপিরাইট &copy; ২০০৮"
+msgstr ""
 
 #: templates/navigation.html:8
 msgid "Daily"
-msgstr "দৈনিক"
+msgstr ""
 
 #: templates/navigation.html:12
 msgid "Meals"
-msgstr "মিল"
+msgstr ""

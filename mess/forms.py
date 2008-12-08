@@ -28,8 +28,14 @@ from django.forms.formsets import formset_factory
 from django.utils.translation import ugettext_lazy as _
 
 import models
+from locales import locales
 
 class MessForm(forms.ModelForm):
+    language = forms.CharField(
+        label=_('Language'),
+        widget=forms.Select(choices=locales)
+    )
+
     class Meta:
         model = models.Mess
 
@@ -68,7 +74,8 @@ class MealForm(forms.Form):
         required=False,
         #max_value=100,
         #min_value=0,
-        error_messages={'invalid': _('Only numbers allowed'),})# 'max_value': '<= 100', 'min_value': '>= 0'})
+        error_messages={'invalid': _('Only numbers allowed'),}
+    )# 'max_value': '<= 100', 'min_value': '>= 0'})
 
     class Meta:
         model = models.Meal

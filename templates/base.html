@@ -20,8 +20,7 @@
             {% trans "Welcome" %} {{ user }},
             <a href="{{ logout_url }}"> {% trans "logout" %}</a>
         {% else %}
-            {% trans "Please" %}
-            <a href="{{ login_url }}">{% trans "login" %}</a> করুন
+            {% blocktrans %}Please <a href="{{ login_url }}">login</a> here{% endblocktrans %}
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -34,5 +33,5 @@
 {% endblock %}
 
 {% block footer %}
-    {% trans "Developed by" %}: ম. নাসিমুল হক, {% trans "Copyright  &copy; 2008" %}
+    {% trans "Developed by" %}: {% trans "M. Nasimul Haque, Copyright  &copy; 2008" %}
 {% endblock %}
