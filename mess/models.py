@@ -175,21 +175,27 @@ class Meal(BaseModel):
                 'nick': member.nick,
             }
 
+            meals = member.meal_set
             if end:
-                meals = member.meal_set.filter('date >=', start).filter('date <', end)
-                if users.is_current_user_admin() and not key:
-                    pass
-                else:
-                    bazaar = member.bazaar_set.filter('date >=', start).filter('date <', end).order('date')
-                    for b in bazaar:
-                        total['cost'] += b.amount
-                        total['bazaar'].append({
-                            'nick': b.member.nick,
-                            'date': b.date,
-                            'amount': b.amount,
-                        })
+                meals = meals.filter('date >=', start).filter('date <', end)
             else:
-                meals = member.meal_set.filter('date =', start)
+                meals = meals.filter('date =', start)
+
+            if users.is_current_user_admin() and not key:
+                pass
+            else:
+                bazaar = member.bazaar_set
+                if end:
+                    bazaar = bazaar.order('date').filter('date >=', start).filter('date <', end)
+                else:
+                    bazaar = bazaar.filter('date =', start)
+                for b in bazaar:
+                    total['cost'] += b.amount
+                    total['bazaar'].append({
+                        'nick': b.member.nick,
+                        'date': b.date,
+                        'amount': b.amount,
+                    })
 
             t_member.update(Meal.total_member(meals))
 
@@ -210,11 +216,13 @@ class Meal(BaseModel):
             total['total'] += total['breakfast'] / 2.
 
         total['members'] = len(total['member'])
-        if total['total'] != 0 and total['cost'] != 0:
-            total['rate'] = total['cost'] / total['total']
-            if total['rate'] != 0:
-                for key, value in total['member'].iteritems():
-                    value['cost'] = value['total']*total['rate']
+
+        if end:
+            if total['total'] != 0 and total['cost'] != 0:
+                total['rate'] = total['cost'] / total['total']
+                if total['rate'] != 0:
+                    for key, value in total['member'].iteritems():
+                        value['cost'] = value['total']*total['rate']
         return total
 
     @staticmethod

@@ -12,9 +12,41 @@
         <a href="/daily/{{day}}/previous">
             {% trans "Previous" %}
         </a>
-        :: {{ date|beng_numeral }}, {{ weekday|beng_weekday }} :: 
+        ::
+        <a href="/daily/{{day}}/">
+            {{ date|beng_numeral }}, {{ weekday|beng_weekday }}
+        </a>
+        ::
         <a href="/daily/{{day}}/next">
             {% trans "Next" %}
         </a>
     </center>
+{% endblock %}
+
+{% block bazaar %}
+    <table id="bazaar-monthly">
+        <caption>{% trans "Bazaar" %}</caption>
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Amount" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for bazaar in total.bazaar %}
+                <tr>
+                    <th>{{ bazaar.nick }}</th>
+                    <td>{{ bazaar.amount|floatformat:2|beng_numeral }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td>{% trans "Total" %}</td>
+                <td>{{ total.cost|floatformat:2|beng_numeral }}</td>
+            </tr>
+        </tfoot>
+    </table>
 {% endblock %}

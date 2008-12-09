@@ -21,7 +21,7 @@
                 <th>{% trans "Supper" %}</th>
                 <th>{% trans "Extra" %}</th>
                 <th>{% trans "Total" %}</th>
-                {% if total.cost %}
+                {% if total.rate %}
                     <th>{% trans "Cost" %}</th>
                 {% endif %}
             </tr>
@@ -45,7 +45,7 @@
                         <td>{{ member.supper|beng_numeral }}</td>
                         <td>{{ member.extra|floatformat|beng_numeral }}</td>
                         <td>{{ member.total|floatformat|beng_numeral }}</td>
-                        {% if total.cost %}
+                        {% if total.rate %}
                             <td>{{ member.cost|floatformat:2|beng_numeral }}</td>
                         {% endif %}
                     </tr>
@@ -65,7 +65,7 @@
                 <td>{{ total.supper|beng_numeral }}</td>
                 <td>{{ total.extra|floatformat|beng_numeral }}</td>
                 <td>{{ total.total|floatformat|beng_numeral }}</td>
-                {% if total.cost %}
+                {% if total.rate %}
                     <td>{{ total.cost|floatformat:2|beng_numeral }}</td>
                 {% endif %}
             </tr>
