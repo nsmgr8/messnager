@@ -4,7 +4,9 @@
 {% load beng_num %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/css/thickbox.css" type="text/css" media="screen" />
+    {% ifnotequal task "daily" %}
+        <link rel="stylesheet" href="/static/css/thickbox.css" type="text/css" media="screen" />
+    {% endifnotequal %}
 {% endblock %}
 
 {% block javascripts %}
@@ -26,43 +28,39 @@
 {% endblock %}
 
 {% block content %}
-    <center>
-        <a href="/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>
-        :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
-        <a href="/{{ task }}/{{ next }}/">{% trans "Next" %}</a>
 
-        <table id="calendar">
-            <thead>
+    <table id="calendar">
+        <caption>
+            <a href="/{{ task }}/{{ previous }}/">{% trans "Previous" %}</a>
+            :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
+            <a href="/{{ task }}/{{ next }}/">{% trans "Next" %}</a>
+        </caption>
+        <thead>
+            <tr>
+                <th>{% trans "Mon" %}</th>
+                <th>{% trans "Tue" %}</th>
+                <th>{% trans "Wed" %}</th>
+                <th>{% trans "Thu" %}</th>
+                <th>{% trans "Fri" %}</th>
+                <th>{% trans "Sat" %}</th>
+                <th>{% trans "Sun" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for week in calendar %}
                 <tr>
-                    <th>{% trans "Mon" %}</th>
-                    <th>{% trans "Tue" %}</th>
-                    <th>{% trans "Wed" %}</th>
-                    <th>{% trans "Thu" %}</th>
-                    <th>{% trans "Fri" %}</th>
-                    <th>{% trans "Sat" %}</th>
-                    <th>{% trans "Sun" %}</th>
+                    {% for day in week %}
+                        <td {% ifequal today day %}class="today"{% endifequal %}>
+                            {% ifnotequal day 0 %}
+                                <a href="/{{task}}/{{year}}-{{month}}-{{day}}/" class="thickbox">
+                                    {{ day|beng_numeral }}
+                                </a>
+                            {% endifnotequal %}
+                        </td>
+                    {% endfor %}
                 </tr>
-            </thead>
-
-            <tbody>
-                {% for week in calendar %}
-                    <tr>
-                        {% for day in week %}
-                            <td
-                                {% ifequal today day %}
-                                    class="today"
-                                {% endifequal %}
-                            >
-                                {% ifnotequal day 0 %}
-                                    <a href="/{{task}}/{{year}}-{{month}}-{{day}}/" class="thickbox">
-                                        {{ day|beng_numeral }}
-                                    </a>
-                                {% endifnotequal %}
-                            </td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </center>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

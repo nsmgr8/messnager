@@ -8,19 +8,17 @@
 {% endblock %}
 
 {% block meal_title %}
-    <center>
+    <span class="other">
         <a href="/daily/{{day}}/previous">
             {% trans "Previous" %}
-        </a>
-        ::
-        <a href="/daily/{{day}}/">
-            {{ date|beng_numeral }}, {{ weekday|beng_weekday }}
-        </a>
-        ::
-        <a href="/daily/{{day}}/next">
+        </a> ::
+    </span>
+    {{ date|beng_numeral }}, {{ weekday|beng_weekday }}
+    <span class="other">
+        :: <a href="/daily/{{day}}/next">
             {% trans "Next" %}
         </a>
-    </center>
+    </span>
 {% endblock %}
 
 {% block bazaar %}

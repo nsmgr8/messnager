@@ -8,11 +8,17 @@
 {% endblock %}
 
 {% block meal_title %}
-    <center>
-        <a href="/monthly/{{ previous }}/{% if admin and key %}{{ key }}{% endif %}">{% trans "Previous" %}</a>
-        :: {{ month|eng_month}}, {{ year|beng_numeral}} ::
-        <a href="/monthly/{{ next }}/{% if admin and key %}{{ key }}{% endif %}">{% trans "Next" %}</a>
-    </center>
+    <span class="other">
+        <a href="/monthly/{{ previous }}/{% if admin and key %}{{ key }}{% endif %}">
+            {% trans "Previous" %}
+        </a> ::
+    </span>
+    {{ month|eng_month}}, {{ year|beng_numeral}}
+    <span class="other">
+        :: <a href="/monthly/{{ next }}/{% if admin and key %}{{ key }}{% endif %}">
+            {% trans "Next" %}
+        </a>
+    </span>
 {% endblock %}
 
 {% block bazaar %}

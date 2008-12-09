@@ -94,6 +94,13 @@ p {
     margin-top:5px;
 }
 
+#print {
+    float:right;
+    clear:both;
+    font-size:70%;
+    margin-right:10px;
+}
+
 input[type=text],
 textarea,
 select {
@@ -159,9 +166,11 @@ th, td {
     background:#af0;
 }
 
-#meal-view caption {
+.rate {
     text-align:right;
     color:red;
+    padding-right:10px;
+    border-top:1px solid red;
 }
 
 .errorlist {

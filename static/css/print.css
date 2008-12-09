@@ -1,0 +1,98 @@
+/* @group general classes */
+.clear { clear: both; }
+/* @end */
+
+/* @group layout */
+
+#body {
+    width: 600px;
+    margin: 0 auto;
+    padding: 0px 10px;
+}
+
+#header {
+    padding:10px 20px;
+    border-bottom:1px solid #daf;
+}
+
+#content {
+    padding: 10px;
+}
+
+#subheader,
+#navigation,
+#footer,
+.other,
+#print {
+    display:none;
+}
+
+/* @end */
+
+/* @group header */
+h1 {
+    font-size:120%;
+    font-weight:bold;
+}
+
+h2 {
+    font-size:90%;
+    font-weight:bold;
+    padding-left:50px;
+}
+
+a {
+    text-decoration:none;
+    color:black;
+}
+/* @end */
+
+p {
+    margin:5px 0px;
+}
+
+input[type=text],
+textarea,
+select {
+    border:1px solid #0fa;
+    width:100%;
+}
+
+label {
+    display: block;
+}
+
+table {
+    width:100%;
+}
+
+caption {
+    text-align:center;
+    font-weight:bold;
+    font-size:120%;
+    margin-top:5px;
+    padding:5px 0px;
+}
+
+thead th {
+    border-bottom: 3px double black;
+}
+
+th, td {
+    border-bottom:1px solid #335;
+    text-align:center;
+    vertical-align:middle;
+    padding:5px 10px;
+}
+
+.rate {
+    text-align:right;
+    color:red;
+    padding-right:10px;
+    border-top:1px solid red;
+}
+
+.errorlist {
+    float:right;
+    color:red;
+}

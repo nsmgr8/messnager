@@ -4,13 +4,18 @@
 {% load beng_num %}
 
 {% block content %}
-    {% block meal_title %}
-    {% endblock %}
+    <div id="print">
+        <a href="javascript:print()">{% trans "Print" %}</a>
+    </div>
 
     <table id="meal-view">
         <caption>
+            {% block meal_title %}
+            {% endblock %}
             {% if total.rate %}
-                {% trans "Meal Rate" %}: {{ total.rate|floatformat:2|beng_numeral }}
+                <div class="rate">
+                    {% trans "Meal Rate" %}: {{ total.rate|floatformat:2|beng_numeral }}
+                </div>
             {% endif %}
         </caption>
         <thead>
