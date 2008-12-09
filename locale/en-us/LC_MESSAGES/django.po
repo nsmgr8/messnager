@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-08 17:31+0000\n"
+"POT-Creation-Date: 2008-12-09 14:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,48 +20,11 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: mess/forms.py:48 mess/models.py:61 mess/templates/assign_manager.html:16
-#: mess/templates/manage_meal.html:23 mess/templates/mess_list.html:6
-#: mess/templates/mess_view.html:6 templates/navigation.html:4
-msgid "Mess"
-msgstr ""
-
-#: mess/forms.py:55 mess/forms.py:65 mess/models.py:127 mess/models.py:253
-#: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
-#: mess/templates/meal_view.html:18 mess/templates/member_list.html:6
-#: templates/navigation.html:6
-msgid "Member"
-msgstr ""
-
-#: mess/forms.py:56 mess/models.py:58
-msgid "Role ID"
-msgstr ""
-
-#: mess/forms.py:67 mess/models.py:121 mess/templates/manage_meal.html:18
-#: mess/templates/meal_view.html:19 mess/templates/member_monthly.html:21
-msgid "Breakfast"
-msgstr ""
-
-#: mess/forms.py:68 mess/models.py:122 mess/templates/manage_meal.html:19
-#: mess/templates/meal_view.html:20 mess/templates/member_monthly.html:22
-msgid "Lunch"
-msgstr ""
-
-#: mess/forms.py:69 mess/models.py:123 mess/templates/manage_meal.html:20
-#: mess/templates/meal_view.html:21 mess/templates/member_monthly.html:23
-msgid "Supper"
-msgstr ""
-
-#: mess/forms.py:72 mess/models.py:124 mess/templates/manage_meal.html:21
-#: mess/templates/meal_view.html:22 mess/templates/member_monthly.html:24
-msgid "Extra"
-msgstr ""
-
-#: mess/forms.py:77
+#: mess/forms.py:76
 msgid "Only numbers allowed"
 msgstr ""
 
-#: mess/forms.py:87 mess/forms.py:94 mess/models.py:255
+#: mess/forms.py:86 mess/forms.py:93 mess/models.py:254
 #: mess/templates/meal_monthly.html:25
 msgid "Amount"
 msgstr ""
@@ -79,16 +42,12 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: mess/models.py:46 mess/models.py:256
+#: mess/models.py:46 mess/models.py:255
 msgid "Description"
 msgstr ""
 
 #: mess/models.py:47
 msgid "Half breakfast"
-msgstr ""
-
-#: mess/models.py:55
-msgid "User"
 msgstr ""
 
 #: mess/models.py:56
@@ -103,16 +62,11 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: mess/models.py:126 mess/models.py:254 mess/templates/meal_monthly.html:24
-#: mess/templates/member_monthly.html:20
-msgid "Date"
-msgstr ""
-
-#: mess/views.py:147
+#: mess/views.py:148
 msgid "mess exists"
 msgstr ""
 
-#: mess/views.py:202 mess/views.py:206 mess/views.py:238 mess/views.py:242
+#: mess/views.py:203 mess/views.py:207 mess/views.py:239 mess/views.py:243
 msgid "user exists"
 msgstr ""
 
@@ -120,12 +74,25 @@ msgstr ""
 msgid "Assign manager"
 msgstr ""
 
+#: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
+#: mess/templates/meal_form.html:26 mess/templates/meal_view.html:18
+#: mess/templates/member_list.html:6 templates/navigation.html:6
+msgid "Member"
+msgstr ""
+
 #: mess/templates/assign_manager.html:14 templates/navigation.html:13
 msgid "Manager"
 msgstr ""
 
+#: mess/templates/assign_manager.html:16 mess/templates/manage_meal.html:23
+#: mess/templates/meal_form.html:32 mess/templates/mess_list.html:6
+#: mess/templates/mess_view.html:6 templates/navigation.html:4
+msgid "Mess"
+msgstr ""
+
 #: mess/templates/assign_manager.html:34 mess/templates/bazaar_daily.html:15
-#: mess/templates/manage_meal.html:49 mess/templates/member_form.html:12
+#: mess/templates/bazaar_form.html:26 mess/templates/manage_meal.html:49
+#: mess/templates/meal_form.html:58 mess/templates/member_form.html:12
 #: mess/templates/mess_add.html:13
 msgid "Save"
 msgstr ""
@@ -134,8 +101,9 @@ msgstr ""
 msgid "Manage Bazaar"
 msgstr ""
 
-#: mess/templates/bazaar_daily.html:11 mess/templates/manage_meal.html:11
-#: mess/templates/meal_daily.html:11
+#: mess/templates/bazaar_daily.html:11 mess/templates/bazaar_form.html:21
+#: mess/templates/manage_meal.html:11 mess/templates/meal_daily.html:11
+#: mess/templates/meal_form.html:20
 msgid "Day"
 msgstr ""
 
@@ -145,6 +113,7 @@ msgid "Bazaar"
 msgstr ""
 
 #: mess/templates/bazaar_future.html:15
+#: mess/templates/bazaar_future_ajax.html:3
 msgid "Sorry! You cannot add bazaar in future!"
 msgstr ""
 
@@ -152,45 +121,49 @@ msgstr ""
 msgid "Select today or any past day. Going back to the"
 msgstr ""
 
-#: mess/templates/bazaar_future.html:17 mess/templates/calendar.html:7
+#: mess/templates/bazaar_future.html:17 mess/templates/calendar.html:25
 msgid "Calender"
 msgstr ""
 
-#: mess/templates/calendar.html:12 mess/templates/meal_monthly.html:12
+#: mess/templates/bazaar_future_ajax.html:4
+msgid "Select today or any past day."
+msgstr ""
+
+#: mess/templates/calendar.html:30 mess/templates/meal_monthly.html:12
 #: mess/templates/member_monthly.html:13
 msgid "Previous"
 msgstr ""
 
-#: mess/templates/calendar.html:14 mess/templates/meal_monthly.html:14
+#: mess/templates/calendar.html:32 mess/templates/meal_monthly.html:14
 #: mess/templates/member_monthly.html:15
 msgid "Next"
 msgstr ""
 
-#: mess/templates/calendar.html:19
+#: mess/templates/calendar.html:37
 msgid "Mon"
 msgstr ""
 
-#: mess/templates/calendar.html:20
+#: mess/templates/calendar.html:38
 msgid "Tue"
 msgstr ""
 
-#: mess/templates/calendar.html:21
+#: mess/templates/calendar.html:39
 msgid "Wed"
 msgstr ""
 
-#: mess/templates/calendar.html:22
+#: mess/templates/calendar.html:40
 msgid "Thu"
 msgstr ""
 
-#: mess/templates/calendar.html:23
+#: mess/templates/calendar.html:41
 msgid "Fri"
 msgstr ""
 
-#: mess/templates/calendar.html:24
+#: mess/templates/calendar.html:42
 msgid "Sat"
 msgstr ""
 
-#: mess/templates/calendar.html:25
+#: mess/templates/calendar.html:43
 msgid "Sun"
 msgstr ""
 
@@ -224,12 +197,36 @@ msgstr ""
 msgid "Manage Meals"
 msgstr ""
 
+#: mess/templates/manage_meal.html:18 mess/templates/meal_form.html:27
+#: mess/templates/meal_view.html:19 mess/templates/member_monthly.html:21
+msgid "Breakfast"
+msgstr ""
+
+#: mess/templates/manage_meal.html:19 mess/templates/meal_form.html:28
+#: mess/templates/meal_view.html:20 mess/templates/member_monthly.html:22
+msgid "Lunch"
+msgstr ""
+
+#: mess/templates/manage_meal.html:20 mess/templates/meal_form.html:29
+#: mess/templates/meal_view.html:21 mess/templates/member_monthly.html:23
+msgid "Supper"
+msgstr ""
+
+#: mess/templates/manage_meal.html:21 mess/templates/meal_form.html:30
+#: mess/templates/meal_view.html:22 mess/templates/member_monthly.html:24
+msgid "Extra"
+msgstr ""
+
 #: mess/templates/meal_daily.html:7
 msgid "Daily Meal"
 msgstr ""
 
 #: mess/templates/meal_monthly.html:7
 msgid "Monthly Meals"
+msgstr ""
+
+#: mess/templates/meal_monthly.html:24 mess/templates/member_monthly.html:20
+msgid "Date"
 msgstr ""
 
 #: mess/templates/meal_monthly.html:41 mess/templates/meal_view.html:23
@@ -280,6 +277,10 @@ msgstr ""
 
 #: mess/templates/mess_list.html:22 templates/navigation.html:9
 msgid "Monthly"
+msgstr ""
+
+#: mess/templates/success.html:3
+msgid "Data saved successfully!"
 msgstr ""
 
 #: templates/500.html:6

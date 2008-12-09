@@ -52,13 +52,13 @@ class Mess(BaseModel):
 
 class Member(BaseModel):
     """ Member model """
-    user = db.UserProperty(verbose_name=_('User'), required=False)
+    user = db.UserProperty(required=False)
     nick = db.StringProperty(verbose_name=_('Nickname'), required=True)
     email = db.EmailProperty(verbose_name=_('Email'), required=True)
-    role_id = db.IntegerProperty(verbose_name=_('Role ID'), default=roles['member'])
+    role_id = db.IntegerProperty(default=roles['member'])
     active = db.BooleanProperty(verbose_name=_('Active'), default=True)
 
-    mess = db.ReferenceProperty(Mess, verbose_name=_('Mess'), required=True)
+    mess = db.ReferenceProperty(Mess, required=True)
 
     def __unicode__(self):
         return "%s (%s)" % (self.nick, self.mess.name)
@@ -83,7 +83,6 @@ class Member(BaseModel):
             def check_login(self, *args, **kwargs):
                 if users.is_current_user_admin():
                     logging.info("Allowing role (%s) for (%s)" % (role, users.get_current_user()))
-                    logging.info("Since s/he is admin")
                     return handler_method(self, *args, **kwargs)
 
                 user = Member.current_user()
@@ -118,13 +117,13 @@ class Member(BaseModel):
         return query
 
 class Meal(BaseModel):
-    breakfast = db.BooleanProperty(verbose_name=_('Breakfast'), required=False)
-    lunch = db.BooleanProperty(verbose_name=_('Lunch'), required=False)
-    supper = db.BooleanProperty(verbose_name=_('Supper'), required=False)
-    extra = db.FloatProperty(verbose_name=_('Extra'), required=False)
+    breakfast = db.BooleanProperty(required=False)
+    lunch = db.BooleanProperty(required=False)
+    supper = db.BooleanProperty(required=False)
+    extra = db.FloatProperty(required=False)
 
-    date = db.DateProperty(verbose_name=_('Date'))
-    member = db.ReferenceProperty(Member, verbose_name=_('Member'), required=False)
+    date = db.DateProperty()
+    member = db.ReferenceProperty(Member, required=False)
 
     @staticmethod
     def day_total(date):
@@ -250,7 +249,7 @@ class Meal(BaseModel):
         return total
 
 class Bazaar(BaseModel):
-    member = db.ReferenceProperty(Member, verbose_name=_('Member'), required=True)
-    date = db.DateProperty(verbose_name=_('Date'), required=True)
+    member = db.ReferenceProperty(Member, required=True)
+    date = db.DateProperty(required=True)
     amount = db.FloatProperty(verbose_name=_('Amount'), required=True)
     description = db.TextProperty(verbose_name=_('Description'))

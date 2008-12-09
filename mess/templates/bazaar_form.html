@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load beng_num %}
+
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+<script type="text/javascript">
+    // prepare Options Object
+    var options = {
+        target: "#TB_ajaxContent",
+        success: function() {
+            if($('#bazaar-form').size() == 0) {
+                tb_remove();
+            }
+        }
+    };
+
+    // pass options to ajaxForm
+    $('#bazaar-form').ajaxForm(options);
+</script>
+
+
+<p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+
+<form method="post" id="bazaar-form" action="/bazaar/{{year}}-{{month}}-{{day}}/">
+    {{ form.as_p }}
+    <p>
+        <input type="submit" value="{% trans "Save" %}">
+    </p>
+</form>

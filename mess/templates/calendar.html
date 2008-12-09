@@ -3,6 +3,24 @@
 {% load i18n %}
 {% load beng_num %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/css/thickbox.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block javascripts %}
+    {% ifnotequal task "daily" %}
+        <script type="text/javascript" src="/static/js/thickbox.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.thickbox').attr("href",
+                    function() {
+                        return this.href + "?height=400&width=600";
+                    });
+            });
+        </script>
+    {% endifnotequal %}
+{% endblock %}
+
 {% block title %}
 	{% trans "Calender" %}
 {% endblock %}
@@ -36,7 +54,7 @@
                                 {% endifequal %}
                             >
                                 {% ifnotequal day 0 %}
-                                    <a href="/{{task}}/{{year}}-{{month}}-{{day}}/">
+                                    <a href="/{{task}}/{{year}}-{{month}}-{{day}}/" class="thickbox">
                                         {{ day|beng_numeral }}
                                     </a>
                                 {% endifnotequal %}

@@ -1,0 +1,59 @@
+{% load i18n %}
+{% load beng_num %}
+
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+<script type="text/javascript">
+    // prepare Options Object
+    var options = {
+        target: "#TB_ajaxContent",
+        success: function() {
+            if($('#meal-form').size() == 0) {
+                tb_remove();
+            }
+        }
+    };
+
+    // pass options to ajaxForm
+    $('#meal-form').ajaxForm(options);
+</script>
+
+<p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+
+<form method="post" id="meal-form" action="/meals/{{year}}-{{month}}-{{day}}/">
+    <table id="meal-form-table">
+        <thead>
+            <tr>
+                <th>{% trans "Member" %}</th>
+                <th>{% trans "Breakfast" %}</th>
+                <th>{% trans "Lunch" %}</th>
+                <th>{% trans "Supper" %}</th>
+                <th>{% trans "Extra" %}</th>
+                {% if admin %}
+                    <th>{% trans "Mess" %}</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in forms %}
+                <tr>
+                    <th>{{ form.0.nick|truncate_chars:20 }}</th>
+                    <td>{{form.1.breakfast}}</td>
+                    <td>{{form.1.lunch}}</td>
+                    <td>{{form.1.supper}}</td>
+                    <td>
+                        <span class="form-error">
+                            {{form.1.extra.errors}}
+                        </span>
+                        {{form.1.extra}}
+                        {{form.1.member}}
+                    </td>
+                    {% if admin %}
+                        <td>{{ form.0.mess }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{management_form}}
+    <p><input type="submit" value="{% trans "Save" %}"></p>
+</form>

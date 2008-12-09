@@ -45,15 +45,15 @@ class MemberFormAdmin(forms.ModelForm):
         exclude = ('user', 'role_id', )
 
 class MemberForm(forms.ModelForm):
-    mess = forms.CharField(label=_('Mess'), widget=forms.HiddenInput)
+    mess = forms.CharField(widget=forms.HiddenInput)
 
     class Meta:
         model = models.Member
         exclude = ('user', 'role_id', )
 
 class ManagerForm(forms.Form):
-    member = forms.CharField(label=_('Member'), widget=forms.HiddenInput)
-    role_id = forms.BooleanField(label=_('Role ID'), required=False)
+    member = forms.CharField(widget=forms.HiddenInput)
+    role_id = forms.BooleanField(required=False)
 
     class Meta:
         model = models.Member
@@ -62,14 +62,13 @@ class ManagerForm(forms.Form):
 ManagerFormSet = formset_factory(ManagerForm)
 
 class MealForm(forms.Form):
-    member = forms.CharField(label=_('Member'), widget=forms.HiddenInput)
+    member = forms.CharField(widget=forms.HiddenInput)
 
-    breakfast = forms.BooleanField(label=_('Breakfast'), required=False)
-    lunch = forms.BooleanField(label=_('Lunch'), required=False)
-    supper = forms.BooleanField(label=_('Supper'), required=False)
+    breakfast = forms.BooleanField(required=False)
+    lunch = forms.BooleanField(required=False)
+    supper = forms.BooleanField(required=False)
 
     extra = forms.FloatField(
-        label=_('Extra'),
         widget=forms.TextInput(attrs={'size': '3'}),
         required=False,
         #max_value=100,

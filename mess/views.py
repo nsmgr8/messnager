@@ -33,8 +33,9 @@ from google.appengine.api import users
 from django import forms as djforms
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import translation
@@ -398,6 +399,8 @@ def edit_meal(request, year, month, day):
                     meal.put()
                 except KeyError:
                     pass
+            if request.is_ajax():
+                return render_to_response("success.html")
             return HttpResponseRedirect('/meals/')
 
         forms = zip(Member.all().order('nick'), formset.forms)
@@ -430,23 +433,35 @@ def edit_meal(request, year, month, day):
         'weekday': calendar.weekday(year, month, day),
         'forms': forms,
         'management_form': formset.management_form,
+        'year': year,
+        'month': month,
+        'day': day,
     }
+
+    if request.is_ajax():
+        return render_to_response("meal_form.html", params)
+
     return render(request, "manage_meal.html", params)
 
 @Member.role('member')
-def meal_daily(request, year, month, day):
+def meal_daily(request, year, month, day, nav):
     year = int(year)
     month = int(month)
     day = int(day)
     try:
         show_day = datetime.date(year=year, month=month, day=day)
+        if nav == 'next':
+            show_day += datetime.timedelta(days=1)
+        if nav == 'previous':
+            show_day -= datetime.timedelta(days=1)
     except ValueError:
         return HttpResponseRedirect('/daily/')
 
     params = {
-        'date': '%d/%d/%d' % (day, month, year),
-        'weekday': calendar.weekday(year, month, day),
+        'date': '%d/%d/%d' % (show_day.day, show_day.month, show_day.year),
+        'weekday': calendar.weekday(show_day.year, show_day.month, show_day.day),
         'total': Meal.day_total(show_day),
+        'day': "%d-%d-%d" % (show_day.year, show_day.month, show_day.day),
     }
     return render(request, "meal_daily.html", params)
 
@@ -501,6 +516,8 @@ def bazaar_daily(request, year, month, day):
         if today < date:
             raise
     except:
+        if request.is_ajax():
+            return render(request, "bazaar_future_ajax.html")
         return render(request, "bazaar_future.html")
 
     if request.method == 'POST':
@@ -514,6 +531,8 @@ def bazaar_daily(request, year, month, day):
             amount = form.cleaned_data['amount']
             bazaar = Bazaar(member=member, date=date, amount=amount)
             bazaar.put()
+            if request.is_ajax():
+                return render_to_response("success.html")
             return HttpResponseRedirect('/bazaar/')
     else:
         if users.is_current_user_admin():
@@ -525,6 +544,12 @@ def bazaar_daily(request, year, month, day):
         'form': form,
         'date': '%s/%s/%s' % (day, month, year),
         'weekday': calendar.weekday(iyear, imonth, iday),
+        'year': year,
+        'month':month,
+        'day': day,
     }
+
+    if request.is_ajax():
+        return render_to_response("bazaar_form.html", params)
 
     return render(request, "bazaar_daily.html", params)

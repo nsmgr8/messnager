@@ -8,5 +8,13 @@
 {% endblock %}
 
 {% block meal_title %}
-    <p>{% trans "Day" %}: {{ date|beng_numeral }}, {{ weekday|beng_weekday }}</p>
+    <center>
+        <a href="/daily/{{day}}/previous">
+            {% trans "Previous" %}
+        </a>
+        :: {{ date|beng_numeral }}, {{ weekday|beng_weekday }} :: 
+        <a href="/daily/{{day}}/next">
+            {% trans "Next" %}
+        </a>
+    </center>
 {% endblock %}
