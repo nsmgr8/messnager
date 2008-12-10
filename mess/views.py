@@ -529,7 +529,11 @@ def bazaar_daily(request, year, month, day):
             member = users.is_current_user_admin() and \
                      form.cleaned_data['member'] or Member.current_user()
             amount = form.cleaned_data['amount']
-            bazaar = Bazaar(member=member, date=date, amount=amount)
+            description = form.cleaned_data['description']
+            bazaar = Bazaar(member=member,
+                            date=date,
+                            amount=amount,
+                            description=description)
             bazaar.put()
             if request.is_ajax():
                 return render_to_response("success.html")

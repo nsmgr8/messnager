@@ -194,6 +194,7 @@ class Meal(BaseModel):
                     total['bazaar'].append({
                         'nick': b.member.nick,
                         'date': b.date,
+                        'description': b.description,
                         'amount': b.amount,
                     })
 

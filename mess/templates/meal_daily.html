@@ -27,6 +27,7 @@
         <thead>
             <tr>
                 <th>{% trans "Name" %}</th>
+                <th>{% trans "Description" %}</th>
                 <th>{% trans "Amount" %}</th>
             </tr>
         </thead>
@@ -35,14 +36,15 @@
             {% for bazaar in total.bazaar %}
                 <tr>
                     <th>{{ bazaar.nick }}</th>
+                    <td>{{ bazaar.description }}</td>
                     <td>{{ bazaar.amount|floatformat:2|beng_numeral }}</td>
-                    </tr>
+                </tr>
             {% endfor %}
         </tbody>
 
         <tfoot>
             <tr>
-                <td>{% trans "Total" %}</td>
+                <th colspan="2">{% trans "Total" %}</th>
                 <td>{{ total.cost|floatformat:2|beng_numeral }}</td>
             </tr>
         </tfoot>
