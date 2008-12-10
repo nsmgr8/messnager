@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messnager 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-09 14:04+0000\n"
+"POT-Creation-Date: 2008-12-10 12:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nasimul Haque <nasim.haque@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,8 +40,8 @@ msgstr "ভাষা"
 msgid "Only numbers allowed"
 msgstr "শুধুমাত্র সংখ্যা প্রযোজ্য"
 
-#: mess/forms.py:86 mess/forms.py:93 mess/models.py:254
-#: mess/templates/meal_monthly.html:25
+#: mess/forms.py:86 mess/forms.py:93 mess/models.py:263
+#: mess/templates/meal_daily.html:31 mess/templates/meal_monthly.html:32
 msgid "Amount"
 msgstr "টাকা"
 
@@ -53,12 +53,13 @@ msgstr "বাংলা"
 msgid "English"
 msgstr "ইংরেজী"
 
-#: mess/models.py:45 mess/templates/meal_monthly.html:23
-#: mess/templates/mess_view.html:10
+#: mess/models.py:45 mess/templates/meal_daily.html:29
+#: mess/templates/meal_monthly.html:29 mess/templates/mess_view.html:10
 msgid "Name"
 msgstr "নাম"
 
-#: mess/models.py:46 mess/models.py:255
+#: mess/models.py:46 mess/models.py:264 mess/templates/meal_daily.html:30
+#: mess/templates/meal_monthly.html:31
 msgid "Description"
 msgstr "বর্ণনা"
 
@@ -91,7 +92,7 @@ msgid "Assign manager"
 msgstr "ম্যানেজার নিয়োগ"
 
 #: mess/templates/assign_manager.html:13 mess/templates/manage_meal.html:17
-#: mess/templates/meal_form.html:26 mess/templates/meal_view.html:18
+#: mess/templates/meal_form.html:26 mess/templates/meal_view.html:23
 #: mess/templates/member_list.html:6 templates/navigation.html:6
 msgid "Member"
 msgstr "সদস্য"
@@ -118,13 +119,12 @@ msgid "Manage Bazaar"
 msgstr "বাজার নিয়ন্ত্রণ"
 
 #: mess/templates/bazaar_daily.html:11 mess/templates/bazaar_form.html:21
-#: mess/templates/manage_meal.html:11 mess/templates/meal_daily.html:11
-#: mess/templates/meal_form.html:20
+#: mess/templates/manage_meal.html:11 mess/templates/meal_form.html:20
 msgid "Day"
 msgstr "রোজ"
 
-#: mess/templates/bazaar_future.html:11 mess/templates/meal_monthly.html:20
-#: templates/navigation.html:7
+#: mess/templates/bazaar_future.html:11 mess/templates/meal_daily.html:26
+#: mess/templates/meal_monthly.html:26 templates/navigation.html:7
 msgid "Bazaar"
 msgstr "বাজার"
 
@@ -137,7 +137,7 @@ msgstr "দুঃখিত! ভবিষ্যত সময়ে বাজার �
 msgid "Select today or any past day. Going back to the"
 msgstr "আজ অথবা পুরনো দিন বাছাই করুন। ফিরে যাচ্ছি"
 
-#: mess/templates/bazaar_future.html:17 mess/templates/calendar.html:25
+#: mess/templates/bazaar_future.html:17 mess/templates/calendar.html:27
 msgid "Calender"
 msgstr "ক্যালেন্ডার"
 
@@ -145,41 +145,41 @@ msgstr "ক্যালেন্ডার"
 msgid "Select today or any past day."
 msgstr "আজ অথবা পুরনো দিন বাছাই করুন।"
 
-#: mess/templates/calendar.html:30 mess/templates/meal_monthly.html:12
-#: mess/templates/member_monthly.html:13
+#: mess/templates/calendar.html:34 mess/templates/meal_daily.html:13
+#: mess/templates/meal_monthly.html:13 mess/templates/member_monthly.html:13
 msgid "Previous"
 msgstr "পূর্ববর্তী"
 
-#: mess/templates/calendar.html:32 mess/templates/meal_monthly.html:14
-#: mess/templates/member_monthly.html:15
+#: mess/templates/calendar.html:36 mess/templates/meal_daily.html:19
+#: mess/templates/meal_monthly.html:19 mess/templates/member_monthly.html:15
 msgid "Next"
 msgstr "পরবর্তী"
 
-#: mess/templates/calendar.html:37
+#: mess/templates/calendar.html:40
 msgid "Mon"
 msgstr "সোম"
 
-#: mess/templates/calendar.html:38
+#: mess/templates/calendar.html:41
 msgid "Tue"
 msgstr "মঙ্গল"
 
-#: mess/templates/calendar.html:39
+#: mess/templates/calendar.html:42
 msgid "Wed"
 msgstr "বুধ"
 
-#: mess/templates/calendar.html:40
+#: mess/templates/calendar.html:43
 msgid "Thu"
 msgstr "বৃহঃ"
 
-#: mess/templates/calendar.html:41
+#: mess/templates/calendar.html:44
 msgid "Fri"
 msgstr "শুক্র"
 
-#: mess/templates/calendar.html:42
+#: mess/templates/calendar.html:45
 msgid "Sat"
 msgstr "শনি"
 
-#: mess/templates/calendar.html:43
+#: mess/templates/calendar.html:46
 msgid "Sun"
 msgstr "রবি"
 
@@ -216,22 +216,22 @@ msgid "Manage Meals"
 msgstr "মিল নিয়ন্ত্রণ"
 
 #: mess/templates/manage_meal.html:18 mess/templates/meal_form.html:27
-#: mess/templates/meal_view.html:19 mess/templates/member_monthly.html:21
+#: mess/templates/meal_view.html:24 mess/templates/member_monthly.html:21
 msgid "Breakfast"
 msgstr "সকালের নাস্তা"
 
 #: mess/templates/manage_meal.html:19 mess/templates/meal_form.html:28
-#: mess/templates/meal_view.html:20 mess/templates/member_monthly.html:22
+#: mess/templates/meal_view.html:25 mess/templates/member_monthly.html:22
 msgid "Lunch"
 msgstr "দুপুরের খাবার"
 
 #: mess/templates/manage_meal.html:20 mess/templates/meal_form.html:29
-#: mess/templates/meal_view.html:21 mess/templates/member_monthly.html:23
+#: mess/templates/meal_view.html:26 mess/templates/member_monthly.html:23
 msgid "Supper"
 msgstr "রাতের খাবার"
 
 #: mess/templates/manage_meal.html:21 mess/templates/meal_form.html:30
-#: mess/templates/meal_view.html:22 mess/templates/member_monthly.html:24
+#: mess/templates/meal_view.html:27 mess/templates/member_monthly.html:24
 msgid "Extra"
 msgstr "অতিরিক্ত"
 
@@ -239,28 +239,32 @@ msgstr "অতিরিক্ত"
 msgid "Daily Meal"
 msgstr "দৈনিক"
 
+#: mess/templates/meal_daily.html:47 mess/templates/meal_monthly.html:49
+#: mess/templates/meal_view.html:28 mess/templates/member_monthly.html:48
+msgid "Total"
+msgstr "সর্বমোট"
+
 #: mess/templates/meal_monthly.html:7
 msgid "Monthly Meals"
 msgstr "মাসিক"
 
-#: mess/templates/meal_monthly.html:24 mess/templates/member_monthly.html:20
+#: mess/templates/meal_monthly.html:30 mess/templates/member_monthly.html:20
 msgid "Date"
 msgstr "তারিখ"
 
-#: mess/templates/meal_monthly.html:41 mess/templates/meal_view.html:23
-#: mess/templates/member_monthly.html:48
-msgid "Total"
-msgstr "সর্বমোট"
+#: mess/templates/meal_view.html:8
+msgid "Print"
+msgstr ""
 
-#: mess/templates/meal_view.html:13
+#: mess/templates/meal_view.html:17
 msgid "Meal Rate"
 msgstr "মিল রেট"
 
-#: mess/templates/meal_view.html:25
+#: mess/templates/meal_view.html:30
 msgid "Cost"
 msgstr "খরচ"
 
-#: mess/templates/meal_view.html:55 mess/templates/member_monthly.html:41
+#: mess/templates/meal_view.html:60 mess/templates/member_monthly.html:41
 msgid "No meal data available"
 msgstr "মিল ডাটা নাই"
 
@@ -276,12 +280,12 @@ msgstr "সদস্য সম্পাদনা"
 msgid "Add a new member"
 msgstr "নতুন সদস্য যোগ করুন"
 
-#: mess/templates/member_list.html:24 mess/templates/mess_list.html:20
-#: mess/templates/mess_list.html.py:27
+#: mess/templates/member_list.html:24 mess/templates/mess_list.html:23
+#: mess/templates/mess_list.html.py:30
 msgid "Edit"
 msgstr "সম্পাদনা"
 
-#: mess/templates/member_list.html:27 mess/templates/mess_list.html:21
+#: mess/templates/member_list.html:27 mess/templates/mess_list.html:24
 msgid "Delete"
 msgstr "মুছে ফেলুন"
 
@@ -293,7 +297,11 @@ msgstr "নতুন মেস"
 msgid "Add a new mess"
 msgstr "নতুন মেস যোগ করুন"
 
-#: mess/templates/mess_list.html:22 templates/navigation.html:9
+#: mess/templates/mess_list.html:16
+msgid "Mess List"
+msgstr "মেসের তালিকা"
+
+#: mess/templates/mess_list.html:25 templates/navigation.html:9
 msgid "Monthly"
 msgstr "মাসিক"
 
@@ -326,11 +334,11 @@ msgstr "লগআউট"
 msgid "Please <a href=\"%(login_url)s\">login</a> here"
 msgstr "অনুগ্রহপূর্বক <a href=\"%(login_url)s\">লগইন</a> করুন"
 
-#: templates/base.html:36
+#: templates/base.html:33
 msgid "Developed by"
 msgstr "নির্মাতা"
 
-#: templates/base.html:36
+#: templates/base.html:33
 msgid "M. Nasimul Haque, Copyright  &copy; 2008"
 msgstr "ম. নাসিমুল হক, কপিরাইট &copy; ২০০৮"
 

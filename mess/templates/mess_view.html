@@ -7,6 +7,16 @@
 {% endblock %}
 
 {% block content %}
-	<p>{% trans "Name" %}: {{ mess.name }}</p>
+	<p>{% trans "Mess" %}: {{ mess.name }}</p>
 	<p>{{ mess.description }}</p>
+
+    {% if manager %}
+        {% ifequal mess.key user.mess.key %}
+            <a href="/mess/edit/">{% trans "Edit" %}</a>
+        {% endifequal %}
+    {% endif %}
+
+    {% if admin %}
+        <a href="/mess/edit/{{ mess.key }}">{% trans "Edit" %}</a>
+    {% endif %}
 {% endblock %}

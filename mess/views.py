@@ -134,8 +134,11 @@ def mess_add(request):
 
 @Member.role('manager')
 def mess_edit(request, key=None):
-    if users.is_current_user_admin() and key:
-        mess = Mess.get(key)
+    if users.is_current_user_admin():
+        if key:
+            mess = Mess.get(key)
+        else:
+            return HttpResponseRedirect('/mess/')
     else:
         mess = Member.current_user().mess
     if request.method == 'POST':
